@@ -1,0 +1,309 @@
+/* ============================================================
+   Reflection Quiz — styles
+   ------------------------------------------------------------
+   ALL colours live in the :root block below.
+   Change the pinks there and the whole quiz follows.
+   Everything is scoped under .tq so it cannot leak into,
+   or be broken by, the rest of your site.
+   ============================================================ */
+
+:root {
+  /* --- the pink palette (edit these) --- */
+  --tq-blush:      #fdf3f6;   /* page / outer background      */
+  --tq-card:       #ffffff;   /* card surface                 */
+  --tq-pink-soft:  #fbe4ec;   /* option backgrounds, bar track */
+  --tq-pink:       #e8799f;   /* primary pink — bar, accents  */
+  --tq-pink-deep:  #c04d78;   /* selected state, headings     */
+  --tq-rose-ink:   #4a2337;   /* body text                    */
+  --tq-muted:      #9a7285;   /* small print                  */
+  --tq-line:       #f3d9e3;   /* hairlines / borders          */
+
+  /* --- shape & spacing --- */
+  --tq-radius:     18px;
+  --tq-radius-sm:  14px;
+  --tq-shadow:     0 10px 30px rgba(192, 77, 120, .10);
+  --tq-maxw:       620px;
+
+  /* --- type --- */
+  --tq-font:       ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --tq-font-head:  ui-serif, Georgia, "Times New Roman", serif;
+}
+
+/* Keeps phone "auto dark mode" (Samsung / Android) from
+   repainting the quiz into muddy greys. The block at the
+   bottom of this file restates the light palette explicitly. */
+.tq { color-scheme: light; }
+
+/* ---------- shell ---------- */
+
+.tq,
+.tq * { box-sizing: border-box; }
+
+.tq {
+  font-family: var(--tq-font);
+  color: var(--tq-rose-ink);
+  background: var(--tq-blush);
+  max-width: var(--tq-maxw);
+  margin: 0 auto;
+  padding: 28px 20px 36px;
+  border-radius: var(--tq-radius);
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+  line-height: 1.55;
+}
+
+/* ---------- progress ---------- */
+
+.tq-progress { margin-bottom: 20px; }
+
+.tq-progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 9px;
+}
+
+.tq-step {
+  font-size: .82rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--tq-muted);
+}
+
+.tq-pct {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--tq-pink-deep);
+}
+
+.tq-bar {
+  height: 8px;
+  background: var(--tq-pink-soft);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.tq-bar-fill {
+  height: 100%;
+  width: 12.5%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--tq-pink) 0%, var(--tq-pink-deep) 100%);
+  transition: width .35s ease;   /* remove this line for zero motion */
+}
+
+/* ---------- card ---------- */
+
+.tq-card {
+  background: var(--tq-card);
+  border: 1px solid var(--tq-line);
+  border-radius: var(--tq-radius);
+  box-shadow: var(--tq-shadow);
+  padding: 30px 26px;
+}
+
+.tq-eyebrow {
+  font-size: .74rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--tq-pink);
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+.tq-q {
+  font-family: var(--tq-font-head);
+  font-size: 1.5rem;
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--tq-pink-deep);
+  margin: 0 0 22px;
+}
+
+/* ---------- options ---------- */
+
+.tq-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tq-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--tq-rose-ink);
+  background: var(--tq-pink-soft);
+  border: 1.5px solid transparent;
+  border-radius: var(--tq-radius-sm);
+  padding: 15px 17px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.tq-option:hover {
+  background: #f8d7e4;
+  border-color: var(--tq-pink);
+}
+
+.tq-option:focus-visible {
+  outline: 3px solid var(--tq-pink);
+  outline-offset: 2px;
+}
+
+.tq-option.is-selected {
+  background: var(--tq-pink-deep);
+  border-color: var(--tq-pink-deep);
+  color: #fff;
+}
+
+/* ---------- result ---------- */
+
+.tq-result-mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--tq-pink-soft);
+  color: var(--tq-pink-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.tq-result h2 {
+  font-family: var(--tq-font-head);
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--tq-pink-deep);
+  margin: 0 0 14px;
+}
+
+.tq-result p {
+  margin: 0 0 14px;
+  font-size: 1rem;
+}
+
+.tq-result p:last-of-type { margin-bottom: 0; }
+
+.tq-next {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--tq-line);
+}
+
+.tq-next-title {
+  font-size: .76rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--tq-pink);
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.tq-next ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tq-next li { margin-bottom: 7px; }
+
+.tq-cta {
+  display: inline-block;
+  margin-top: 20px;
+  background: var(--tq-pink-deep);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 14px 26px;
+  border: 0;
+  border-radius: 99px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tq-cta:hover { background: var(--tq-pink); }
+
+.tq-restart {
+  display: block;
+  margin: 16px auto 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: .88rem;
+  color: var(--tq-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- footer ---------- */
+
+.tq-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.tq-back {
+  align-self: flex-start;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: .9rem;
+  color: var(--tq-muted);
+  cursor: pointer;
+  padding: 4px 2px;
+}
+
+.tq-back:hover { color: var(--tq-pink-deep); }
+
+.tq-note {
+  margin: 0;
+  font-size: .8rem;
+  color: var(--tq-muted);
+  text-align: center;
+}
+
+/* ---------- phones ---------- */
+
+@media (max-width: 480px) {
+  .tq        { padding: 20px 14px 28px; border-radius: 0; }
+  .tq-card   { padding: 22px 18px; }
+  .tq-q      { font-size: 1.3rem; }
+  .tq-option { padding: 14px 15px; font-size: .97rem; }
+  .tq-result h2 { font-size: 1.4rem; }
+  .tq-cta    { display: block; text-align: center; }
+}
+
+/* ---------- respect reduced-motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .tq * { transition: none !important; }
+}
+
+/* ---------- phone dark mode ----------
+   Restating the light palette here stops Android's automatic
+   dark mode from inventing its own (usually grey) colours.
+   If you ever want a real dark version, change these values. */
+
+@media (prefers-color-scheme: dark) {
+  .tq {
+    --tq-blush:     #fdf3f6;
+    --tq-card:      #ffffff;
+    --tq-pink-soft: #fbe4ec;
+    --tq-pink:      #e8799f;
+    --tq-pink-deep: #c04d78;
+    --tq-rose-ink:  #4a2337;
+    --tq-muted:     #9a7285;
+    --tq-line:      #f3d9e3;
+  }
+}
