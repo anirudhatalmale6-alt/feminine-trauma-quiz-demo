@@ -1,0 +1,166 @@
+YOUR QUESTIONS - fill this in and send it back
+==============================================
+
+Fill in whatever you can and send it back to me (or just type it
+straight into the chat if that's easier - either works).
+
+Anything you leave blank, I'll keep as it is now.
+
+
+-----------------------------------------------------------
+HOW THE SCORING WORKS (so you can weight your own answers)
+-----------------------------------------------------------
+
+Every answer carries a number from 0 to 3:
+
+  0 = healthy / settled / no concern
+  1 = mild
+  2 = moderate
+  3 = strong indicator
+
+The numbers add up across all questions, and the total decides
+which ending she sees.
+
+You do NOT have to fill these in. If you'd rather, just write the
+questions and answers and I'll assign sensible numbers, then you
+can tell me if any feel off.
+
+Answers per question: 4 works nicely, but 3 or 5 is fine too, and
+they don't all have to have the same number.
+
+
+-----------------------------------------------------------
+THE QUESTIONS
+-----------------------------------------------------------
+
+QUESTION 1
+Section heading (small text above the question, e.g. "Your experience"):
+Question:
+  a)                                                  [ ]
+  b)                                                  [ ]
+  c)                                                  [ ]
+  d)                                                  [ ]
+
+QUESTION 2
+Section heading:
+Question:
+  a)                                                  [ ]
+  b)                                                  [ ]
+  c)                                                  [ ]
+  d)                                                  [ ]
+
+QUESTION 3
+Section heading:
+Question:
+  a)                                                  [ ]
+  b)                                                  [ ]
+  c)                                                  [ ]
+  d)                                                  [ ]
+
+QUESTION 4
+Section heading:
+Question:
+  a)                                                  [ ]
+  b)                                                  [ ]
+  c)                                                  [ ]
+  d)                                                  [ ]
+
+QUESTION 5
+Section heading:
+Question:
+  a)                                                  [ ]
+  b)                                                  [ ]
+  c)                                                  [ ]
+  d)                                                  [ ]
+
+QUESTION 6
+Section heading:
+Question:
+  a)                                                  [ ]
+  b)                                                  [ ]
+  c)                                                  [ ]
+  d)                                                  [ ]
+
+QUESTION 7
+Section heading:
+Question:
+  a)                                                  [ ]
+  b)                                                  [ ]
+  c)                                                  [ ]
+  d)                                                  [ ]
+
+QUESTION 8
+Section heading:
+Question:
+  a)                                                  [ ]
+  b)                                                  [ ]
+  c)                                                  [ ]
+  d)                                                  [ ]
+
+(Want more or fewer than 8 questions? Just say - the progress bar
+and the "Question 3 of 8" counter adjust themselves automatically.)
+
+
+-----------------------------------------------------------
+THE ENDING
+-----------------------------------------------------------
+
+Pick one:
+
+  [ ] ONE ending - everybody sees the same message
+  [ ] THREE endings - different message depending on her score
+      (this is what the demo does now)
+
+If ONE ending, write it here:
+
+  Heading:
+  Paragraphs:
+
+  "Where to go from here" points (delete if you don't want them):
+   -
+   -
+   -
+
+If THREE endings, write each one here:
+
+  LOWER SCORES
+  Heading:
+  Paragraphs:
+  Points:
+   -
+   -
+
+  MIDDLE SCORES
+  Heading:
+  Paragraphs:
+  Points:
+   -
+   -
+
+  HIGHER SCORES
+  Heading:
+  Paragraphs:
+  Points:
+   -
+   -
+
+
+-----------------------------------------------------------
+THE BUTTON AT THE END
+-----------------------------------------------------------
+
+Button wording (currently "Book a free 20-minute call"):
+
+Where it should link to (booking page, contact form, email link):
+
+
+-----------------------------------------------------------
+SMALL PRINT
+-----------------------------------------------------------
+
+Line under the questions (currently:
+"This is a gentle self-reflection, not a diagnosis."):
+
+Line under the ending (currently:
+"If you are in immediate danger, please contact your local
+emergency services."):
