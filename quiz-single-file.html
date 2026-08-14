@@ -7,7 +7,8 @@
 <!-- SINGLE-FILE VERSION: CSS and JS are inlined below. -->
 <style>
 /* ============================================================
-   Reflection Quiz — styles
+   Are You in a Trauma Bond? — styles
+   Vienna Wood Inner Child Therapy
    ------------------------------------------------------------
    ALL colours live in the :root block below.
    Change the pinks there and the whole quiz follows.
@@ -16,20 +17,33 @@
    ============================================================ */
 
 :root {
-  /* --- the pink palette (edit these) --- */
-  --tq-blush:      #fdf3f6;   /* page / outer background      */
-  --tq-card:       #ffffff;   /* card surface                 */
-  --tq-pink-soft:  #fbe4ec;   /* option backgrounds, bar track */
-  --tq-pink:       #e8799f;   /* primary pink — bar, accents  */
-  --tq-pink-deep:  #c04d78;   /* selected state, headings     */
-  --tq-rose-ink:   #4a2337;   /* body text                    */
-  --tq-muted:      #9a7285;   /* small print                  */
-  --tq-line:       #f3d9e3;   /* hairlines / borders          */
+  /* --- Vienna Wood brand palette ---------------------------
+     Your three brand colours, used exactly as supplied:
+         #000000  black      -> body text
+         #FEC3D7  light pink -> answer buttons
+         #FC73A8  bright pink-> selected answer, progress bar
+
+     Two shades are DERIVED from #FC73A8 because the brand pink
+     is too light to read as text (it only reaches 2.6:1 against
+     white; readable text needs 4.5:1):
+         #BE044C  darker pink -> headings and small labels
+         #FFEDF3  pale tint   -> page background
+     ---------------------------------------------------------- */
+  --tq-blush:      #FFEDF3;   /* page / outer background       */
+  --tq-card:       #FFFFFF;   /* card surface                  */
+  --tq-pink-soft:  #FEC3D7;   /* BRAND - answer buttons        */
+  --tq-pink:       #FC73A8;   /* BRAND - selected answer, bar  */
+  --tq-pink-hover: #FDB3CB;   /* answer button hover           */
+  --tq-pink-deep:  #BE044C;   /* headings, labels, CTA         */
+  --tq-pink-deep-hover: #D20454; /* CTA hover                  */
+  --tq-rose-ink:   #000000;   /* BRAND - body text             */
+  --tq-muted:      #7A3350;   /* small print                   */
+  --tq-line:       #FEDCE8;   /* hairlines / bar track         */
 
   /* --- shape & spacing --- */
   --tq-radius:     18px;
   --tq-radius-sm:  14px;
-  --tq-shadow:     0 10px 30px rgba(192, 77, 120, .10);
+  --tq-shadow:     0 10px 30px rgba(190, 4, 76, .10);
   --tq-maxw:       620px;
 
   /* --- type --- */
@@ -86,7 +100,7 @@
 
 .tq-bar {
   height: 8px;
-  background: var(--tq-pink-soft);
+  background: var(--tq-line);
   border-radius: 99px;
   overflow: hidden;
 }
@@ -113,7 +127,7 @@
   font-size: .74rem;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--tq-pink);
+  color: var(--tq-pink-deep);
   margin: 0 0 12px;
   font-weight: 600;
 }
@@ -154,19 +168,20 @@
 }
 
 .tq-option:hover {
-  background: #f8d7e4;
+  background: var(--tq-pink-hover);
   border-color: var(--tq-pink);
 }
 
 .tq-option:focus-visible {
-  outline: 3px solid var(--tq-pink);
+  outline: 3px solid var(--tq-pink-deep);
   outline-offset: 2px;
 }
 
 .tq-option.is-selected {
-  background: var(--tq-pink-deep);
+  background: var(--tq-pink);
   border-color: var(--tq-pink-deep);
-  color: #fff;
+  color: var(--tq-rose-ink);
+  font-weight: 600;
 }
 
 /* ---------- result ---------- */
@@ -206,7 +221,7 @@
   font-size: .76rem;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--tq-pink);
+  color: var(--tq-pink-deep);
   font-weight: 600;
   margin: 22px 0 8px !important;
 }
@@ -224,7 +239,7 @@
   font-size: .76rem;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--tq-pink);
+  color: var(--tq-pink-deep);
   font-weight: 600;
   margin: 0 0 10px;
 }
@@ -251,7 +266,7 @@
   font-family: inherit;
 }
 
-.tq-cta:hover { background: var(--tq-pink); }
+.tq-cta:hover { background: var(--tq-pink-deep-hover); }
 
 .tq-restart {
   display: block;
@@ -319,14 +334,16 @@
 
 @media (prefers-color-scheme: dark) {
   .tq {
-    --tq-blush:     #fdf3f6;
-    --tq-card:      #ffffff;
-    --tq-pink-soft: #fbe4ec;
-    --tq-pink:      #e8799f;
-    --tq-pink-deep: #c04d78;
-    --tq-rose-ink:  #4a2337;
-    --tq-muted:     #9a7285;
-    --tq-line:      #f3d9e3;
+    --tq-blush:     #FFEDF3;
+    --tq-card:      #FFFFFF;
+    --tq-pink-soft: #FEC3D7;
+    --tq-pink:      #FC73A8;
+    --tq-pink-hover:#FDB3CB;
+    --tq-pink-deep: #BE044C;
+    --tq-pink-deep-hover: #D20454;
+    --tq-rose-ink:  #000000;
+    --tq-muted:     #7A3350;
+    --tq-line:      #FEDCE8;
   }
 }
 
