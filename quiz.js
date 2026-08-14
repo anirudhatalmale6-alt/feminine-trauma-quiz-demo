@@ -1,97 +1,104 @@
 /* ============================================================
-   Reflection Quiz — logic (vanilla JS, no dependencies)
+   Are You in a Trauma Bond? — logic (vanilla JS, no dependencies)
    ------------------------------------------------------------
    Everything you are likely to change lives in the two blocks
    below: QUESTIONS and RESULTS. Nothing else needs touching.
 
-   Each option has a "weight" (0–3). The weights add up and the
-   total decides which RESULTS entry is shown.
-   Max possible score = 8 questions x 3 = 24.
+   Each option has a "weight". Your scoring is:
+       A = 0    B = 1    C = 2    D = 3
+   The weights add up and the total decides which RESULTS entry
+   is shown. Max possible score = 8 questions x 3 = 24.
 
-   Want ONE ending for everybody instead of three?
-   Delete the first two entries in RESULTS and leave the last
+   Your four score bands:
+       0–5    Healthy & Secure Dynamics
+       6–11   Mild to Moderate Dysfunctional Attachment
+       12–18  Moderate Trauma Bond Dynamics
+       19–24  Severe Trauma Bond & Survival Mode
+
+   Want ONE ending for everybody instead of four?
+   Delete the first three entries in RESULTS and leave the last
    one (upTo: 24). The quiz will show it to every visitor.
    ============================================================ */
 
 var QUESTIONS = [
   {
-    eyebrow: "Your experience",
-    text: "After a painful episode, they become warm and loving again. How does that shift usually leave you feeling?",
+    eyebrow: "The “Walking on Eggshells” Pattern",
+    text: "When you think about communicating your boundaries, needs, or feelings to your partner, what goes through your mind?",
     options: [
-      { text: "Relieved and settled — it feels like things are fine again", weight: 3 },
-      { text: "Relieved, but bracing for the next downturn",               weight: 2 },
-      { text: "Confused — I can't tell which version of them is real",     weight: 2 },
-      { text: "It doesn't really change how I feel",                        weight: 0 }
+      { text: "I feel safe and comfortable expressing myself, even if we end up disagreeing.", weight: 0 },
+      { text: "I hesitate, but I usually bring things up after a little while.", weight: 1 },
+      { text: "I carefully gauge their mood first and often decide it’s safer to keep my feelings to myself to avoid a blowout or cold shoulder.", weight: 2 },
+      { text: "I feel intense anxiety or terror. I hide my true self because speaking up usually results in severe emotional punishment, rage, or total withdrawal.", weight: 3 }
     ]
   },
   {
-    eyebrow: "Your experience",
-    text: "How often do you find yourself explaining or softening their behaviour to other people?",
+    eyebrow: "The Highs and Lows (Intermittent Reinforcement)",
+    text: "How would you describe the emotional rhythm of your relationship?",
     options: [
-      { text: "Almost always — I'd rather people didn't judge them", weight: 3 },
-      { text: "Fairly often",                                        weight: 2 },
-      { text: "Occasionally",                                        weight: 1 },
-      { text: "Rarely or never",                                     weight: 0 }
+      { text: "Steady, consistent, and generally calm, even when life gets stressful.", weight: 0 },
+      { text: "Mostly stable, though we have occasional rough patches like any couple.", weight: 1 },
+      { text: "A constant roller coaster. When things are good, they are amazing, but the low periods are deeply confusing and painful.", weight: 2 },
+      { text: "Extreme hot and cold. I am constantly chasing the excitement of the early days or waiting for the loving, attentive version of them to return.", weight: 3 }
     ]
   },
   {
-    eyebrow: "Your experience",
-    text: "When you picture yourself leaving, what comes up most strongly?",
+    eyebrow: "Taking the Blame (The Inner Child Defender)",
+    text: "When a conflict occurs or your partner hurts your feelings, how do you usually respond internally?",
     options: [
-      { text: "A fear that I couldn't cope on my own",       weight: 3 },
-      { text: "Guilt — that I'd be abandoning them",         weight: 3 },
-      { text: "Sadness, but also a quiet sense of relief",   weight: 1 },
-      { text: "I haven't let myself picture it",             weight: 2 }
+      { text: "I evaluate the situation objectively and address the issue together as a team.", weight: 0 },
+      { text: "I sometimes doubt myself, but I can recognise when my partner is in the wrong.", weight: 1 },
+      { text: "I quickly blame myself, wondering what I did wrong or how I can change my behaviour to fix their mood.", weight: 2 },
+      { text: "I feel overwhelming shame, as if I am “bad” or broken. I apologise profusely, even for things I didn’t do, just to restore peace and stop the tension.", weight: 3 }
     ]
   },
   {
-    eyebrow: "Day to day",
-    text: "How much of your day goes into reading or managing their mood?",
+    eyebrow: "Isolation and Guilt",
+    text: "How does your relationship impact your connections with friends, family, or personal interests?",
     options: [
-      { text: "Most of it — I'm always half-watching",  weight: 3 },
-      { text: "A good part of most days",               weight: 2 },
-      { text: "Only when things are already tense",     weight: 1 },
-      { text: "Very little",                            weight: 0 }
+      { text: "My partner encourages me to maintain my independence, friendships, and hobbies.", weight: 0 },
+      { text: "I spend a bit less time with others than I used to, but I still keep my core support network.", weight: 1 },
+      { text: "I feel guilty spending time away from my partner or find myself hiding details of our relationship from loved ones to protect my partner’s image.", weight: 2 },
+      { text: "I have become largely isolated. I feel like I have to choose between my partner and everyone else, or I feel too exhausted and ashamed to talk to anyone.", weight: 3 }
     ]
   },
   {
-    eyebrow: "Looking back",
-    text: "Growing up, how safe did it feel to say what you needed?",
+    eyebrow: "Childhood Familiarity (Schema Activation)",
+    text: "Does the way you feel in this relationship ever remind you of how you felt growing up?",
     options: [
-      { text: "Not safe — needing things caused trouble",        weight: 3 },
-      { text: "It depended entirely on the mood in the house",   weight: 3 },
-      { text: "Mostly safe, with some exceptions",               weight: 1 },
-      { text: "Safe — I was heard",                              weight: 0 }
+      { text: "No, this relationship feels fundamentally different, safer, and healthier than my childhood dynamic.", weight: 0 },
+      { text: "Occasionally, a conflict triggers an old memory, but I can process it and separate the past from the present.", weight: 1 },
+      { text: "Yes, the feeling of having to “earn” love, prove my worth, or prevent someone from abandoning me feels uncomfortably familiar.", weight: 2 },
+      { text: "Deeply. I feel the exact same desperate, unsafe, or invisible feeling I experienced as a child trying to keep an unpredictable parent calm or loving.", weight: 3 }
     ]
   },
   {
-    eyebrow: "Looking back",
-    text: "When something hurts you in this relationship, what do you tend to do first?",
+    eyebrow: "Physical and Emotional Hypervigilance",
+    text: "How does your body physically react when you are around your partner or expecting them home?",
     options: [
-      { text: "Look for what I did to cause it",            weight: 3 },
-      { text: "Go quiet and wait for it to pass",           weight: 2 },
-      { text: "Say something, then apologise for saying it", weight: 2 },
-      { text: "Name it calmly and expect to be heard",      weight: 0 }
+      { text: "My body feels relaxed, grounded, and at ease.", weight: 0 },
+      { text: "Mostly neutral or relaxed, unless we are in the middle of an active argument.", weight: 1 },
+      { text: "I often feel a slight physical tightness (stomach knots, shallow breathing, neck tension) as I brace for their reaction or mood.", weight: 2 },
+      { text: "My nervous system is constantly on high alert. I monitor their tone of voice, footsteps, or text messaging cadence to sense danger before it happens.", weight: 3 }
     ]
   },
   {
-    eyebrow: "You, right now",
-    text: "How would you describe your sense of who you are at the moment?",
+    eyebrow: "Protecting and Justifying",
+    text: "When your partner treats you poorly, breaks a promise, or crosses a major boundary, how do you handle it?",
     options: [
-      { text: "I've lost track of what I want or like",     weight: 3 },
-      { text: "It's there, but faint",                      weight: 2 },
-      { text: "Mostly intact — this has shaken it, though", weight: 1 },
-      { text: "Clear and steady",                           weight: 0 }
+      { text: "I address it directly, hold them accountable, and re-evaluate if this relationship is healthy for me.", weight: 0 },
+      { text: "I express my disappointment, though it sometimes takes a few conversations to resolve.", weight: 1 },
+      { text: "I focus heavily on their past trauma, stress, or good intentions to make excuses for their behaviour.", weight: 2 },
+      { text: "I defend them fiercely to others and myself. I minimise the behaviour, telling myself “If only I were more supportive/patient, they wouldn’t act like this.”", weight: 3 }
     ]
   },
   {
-    eyebrow: "You, right now",
-    text: "Outside this relationship, how much support do you have?",
+    eyebrow: "Leaving vs. Staying",
+    text: "Have you ever tried to leave or distance yourself from this relationship?",
     options: [
-      { text: "Almost none — I've drifted from most people", weight: 3 },
-      { text: "One or two people, but I hold a lot back",    weight: 2 },
-      { text: "A few people I can be honest with",           weight: 1 },
-      { text: "A strong circle around me",                   weight: 0 }
+      { text: "If a relationship isn’t working or becomes unhealthy, I am capable of ending it and staying end-focused.", weight: 0 },
+      { text: "I’ve thought about leaving during bad fights, but we’ve always been able to talk through our issues constructively.", weight: 1 },
+      { text: "I’ve tried to break up or pull away multiple times, but the intense panic, guilt, or their sudden return to being loving brings me right back.", weight: 2 },
+      { text: "The idea of leaving fills me with unbearable grief and pain, even though staying causes me severe psychological distress. I don’t think I can live without them. I feel trapped in a cycle I can’t break.", weight: 3 }
     ]
   }
 ];
@@ -108,36 +115,48 @@ var FLOWER =
   '<circle cx="12"   cy="12"   r="2.9" fill="#fff"/></svg>';
 
 /* Shown once, after the final question. "upTo" is the highest
-   total score that lands on this ending. Keep them in order. */
+   total score that lands on this ending. Keep them in order.
+
+   Each "body" item can be either:
+     - a plain string            -> renders as a paragraph
+     - { label: "...", text: "..." } -> renders with a small
+       pink heading above the paragraph                        */
 var RESULTS = [
   {
-    upTo: 8,
+    upTo: 5,
     mark: FLOWER,
-    title: "You're noticing something — and noticing is where it starts",
+    title: "Healthy & Secure Dynamics",
     body: [
-      "From your answers, you still have a good deal of your own ground under you. You can see the relationship from the outside, you have people around you, and your sense of yourself hasn't disappeared.",
-      "That doesn't make what you're feeling small. Something brought you here, and it's worth listening to."
-    ],
-    next: [
-      "Write down the moments that made you look for this quiz",
-      "Say one honest sentence about it to someone you trust",
-      "Notice when you shrink a need — and let yourself keep it"
+      { label: "What your results mean",
+        text: "Your responses suggest that your relationship is grounded in mutual respect, emotional safety, and open communication. While no relationship is perfect, you do not display the core signs of a trauma bond." },
+      { label: "An Inner Child Perspective",
+        text: "Your wounded inner child is not leading the dynamic in your current relationship. You are able to access your Wise Adult self to set boundaries, express your authentic feelings, and protect your emotional well-being without fear of abandonment or retaliation." }
     ],
     ctaText: "Book a free 20-minute call",
     ctaHref: "#"
   },
   {
-    upTo: 16,
+    upTo: 11,
     mark: FLOWER,
-    title: "The pattern is starting to cost you",
+    title: "Mild to Moderate Dysfunctional Attachment",
     body: [
-      "Your answers describe a relationship you're constantly managing — reading moods, softening the story for others, putting your own reactions last. That takes an enormous amount of energy, and it rarely stays inside the relationship.",
-      "Very often this pattern feels familiar because it is. When needing things wasn't safe early on, staying attuned to someone else's mood became the way to stay safe. It made sense then. It's costing you now."
+      { label: "What your results mean",
+        text: "You are experiencing some red flags commonly seen in unhealthy or insecure relationships. While you may not be fully trapped in a trauma bond, there are patterns of people-pleasing, boundary neglect, or emotional anxiety surfacing in your connection." },
+      { label: "An Inner Child Perspective",
+        text: "Parts of your young self may be activating when tension arises, leading you to walk on eggshells or minimise your own needs to preserve peace. Recognising these early warning signs is a powerful way to re-parent your inner child and practice setting firmer boundaries before deeper toxicity sets in." }
     ],
-    next: [
-      "Track a week: note the moments you edited yourself",
-      "Reconnect with one person you've drifted from",
-      "Work with someone who understands trauma bonding, not just conflict"
+    ctaText: "Book a free 20-minute call",
+    ctaHref: "#"
+  },
+  {
+    upTo: 18,
+    mark: FLOWER,
+    title: "Moderate Trauma Bond Dynamics",
+    body: [
+      { label: "What your results mean",
+        text: "Your scores indicate a clear presence of a trauma bond. You likely find yourself stuck in a painful cycle of high highs and low lows, often questioning your own perception, taking on unfair blame, or feeling unable to walk away despite ongoing distress." },
+      { label: "An Inner Child Perspective",
+        text: "A trauma bond forms when an adult relationship mirrors the unresolved attachment wounds of childhood - where love was intermittent, conditional, or tied to keeping a caregiver calm. Your inner child is currently driving your relationship choices out of a deep survival desire to “fix” the dynamic and finally win the safe love you deserved as a child." }
     ],
     ctaText: "Book a free 20-minute call",
     ctaHref: "#"
@@ -145,22 +164,20 @@ var RESULTS = [
   {
     upTo: 24,
     mark: FLOWER,
-    title: "You've been carrying this for a long time",
+    title: "Severe Trauma Bond & Survival Mode",
     body: [
-      "What you've described has the shape of a trauma bond: relief and fear taking turns until the two become hard to tell apart, self-blame arriving before anger, and a sense of yourself that has quietly gone faint.",
-      "This isn't weakness, and it isn't a failure of judgement. Bonds like this form precisely because the nervous system is doing what it learned to do early — stay close, stay attuned, stay safe. You didn't choose it, and you don't have to unpick it alone."
-    ],
-    next: [
-      "Be gentle with yourself today — this took something to answer",
-      "Tell one safe person where you actually are",
-      "Reach out for structured support; this is very workable with the right help"
+      { label: "What your results mean",
+        text: "You are currently in a high-intensity trauma bond. Your nervous system is likely in a state of chronic hypervigilance (fight, flight, freeze, or fawn). The cycle of unpredictable warmth followed by emotional withdrawal or punishment has locked your body into a chemical attachment loop that feels almost impossible to break on your own." },
+      { label: "An Inner Child Perspective",
+        text: "Your frightened inner child is currently running your system in survival mode. The intense terror or panic you feel at the thought of leaving is not true emotional intimacy; it is an abandonment depression response rooted in childhood developmental trauma. Please know: this is not a weakness on your part, it is a physiological and psychological biological response to chronic unpredictability." }
     ],
     ctaText: "Book a free 20-minute call",
     ctaHref: "#"
   }
 ];
 
-/* Small print under the ending. Edit or set to "" to remove. */
+/* Small print. Edit or set to "" to remove. */
+var QUIZ_NOTE   = "This is a gentle self-reflection, not a diagnosis.";
 var SAFETY_NOTE = "If you are in immediate danger, please contact your local emergency services.";
 
 /* ============================================================
@@ -263,7 +280,13 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
     html += "<h2>" + esc(r.title) + "</h2>";
 
     for (var i = 0; i < r.body.length; i++) {
-      html += "<p>" + esc(r.body[i]) + "</p>";
+      var b = r.body[i];
+      if (b && typeof b === "object") {
+        if (b.label) html += '<p class="tq-body-label">' + esc(b.label) + "</p>";
+        html += "<p>" + esc(b.text) + "</p>";
+      } else {
+        html += "<p>" + esc(b) + "</p>";
+      }
     }
 
     if (r.next && r.next.length) {
@@ -283,8 +306,10 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
 
     setProgress(QUESTIONS.length);
     backBtn.hidden = true;
-    if (noteEl) noteEl.textContent = SAFETY_NOTE || "";
-    if (noteEl && !SAFETY_NOTE) noteEl.hidden = true;
+    if (noteEl) {
+      noteEl.textContent = SAFETY_NOTE || "";
+      noteEl.hidden = !SAFETY_NOTE;
+    }
 
     var h = screenEl.querySelector("h2");
     if (h) { h.setAttribute("tabindex", "-1"); h.focus(); }
@@ -300,7 +325,7 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
       index = 0;
       answers = [];
       selectedIdx = [];
-      if (noteEl) noteEl.textContent = "This is a gentle self-reflection, not a diagnosis.";
+      if (noteEl) noteEl.textContent = QUIZ_NOTE;
       renderQuestion();
     }
   });
@@ -309,5 +334,6 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
     if (index > 0) { index--; renderQuestion(); }
   });
 
+  if (noteEl) noteEl.textContent = QUIZ_NOTE;
   renderQuestion();
 })();

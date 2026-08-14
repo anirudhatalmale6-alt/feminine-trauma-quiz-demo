@@ -192,6 +192,20 @@
 
 .tq-result p:last-of-type { margin-bottom: 0; }
 
+/* small pink heading above a result paragraph
+   ("What your results mean", "An Inner Child Perspective") */
+.tq-body-label {
+  font-size: .76rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--tq-pink);
+  font-weight: 600;
+  margin: 22px 0 8px !important;
+}
+
+.tq-result-mark + h2 + .tq-body-label,
+.tq-result h2 + .tq-body-label { margin-top: 4px !important; }
+
 .tq-next {
   margin-top: 22px;
   padding-top: 20px;
