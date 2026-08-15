@@ -9,37 +9,39 @@
    ============================================================ */
 
 :root {
-  /* --- Vienna Wood brand palette ---------------------------
-     Your three brand colours, used exactly as supplied:
-         #000000  black      -> body text
-         #FEC3D7  light pink -> answer buttons
-         #FC73A8  bright pink-> selected answer, progress bar
+  /* --- Vienna Wood palette, taken from viennawoodtherapy.co.uk
+     These are the exact colours your live site already uses, so the
+     quiz sits on the page as though it was always part of it:
+         #F47C9E  pink        -> headings on your site, buttons, borders
+         #FEAEC6  mid pink    -> your "Hi I'm Vienna" section background
+         #FFDBE0  pale pink   -> your pale section backgrounds
+         #333333  charcoal    -> your body text
 
-     Two shades are DERIVED from #FC73A8 because the brand pink
-     is too light to read as text (it only reaches 2.6:1 against
-     white; readable text needs 4.5:1):
-         #BE044C  darker pink -> headings and small labels
-         #FFEDF3  pale tint   -> page background
+     One shade is DERIVED, because #F47C9E cannot be used as text:
+     against white it only reaches 2.6:1, and readable text needs
+     4.5:1. So headings use a darker version of the same pink:
+         #C1053B  deep pink   -> headings, small labels, CTA button
      ---------------------------------------------------------- */
-  --tq-blush:      #FFEDF3;   /* page / outer background       */
-  --tq-card:       #FFFFFF;   /* card surface                  */
-  --tq-pink-soft:  #FEC3D7;   /* BRAND - answer buttons        */
-  --tq-pink:       #FC73A8;   /* BRAND - selected answer, bar  */
-  --tq-pink-hover: #FDB3CB;   /* answer button hover           */
-  --tq-pink-deep:  #BE044C;   /* headings, labels, CTA         */
-  --tq-pink-deep-hover: #D20454; /* CTA hover                  */
-  --tq-rose-ink:   #000000;   /* BRAND - body text             */
-  --tq-muted:      #7A3350;   /* small print                   */
-  --tq-line:       #FEDCE8;   /* hairlines / bar track         */
+  --tq-blush:      #FFDBE0;   /* SITE - page / outer background */
+  --tq-card:       #FFFFFF;   /* card surface                   */
+  --tq-pink-soft:  #FEAEC6;   /* SITE - answer buttons          */
+  --tq-pink:       #F47C9E;   /* SITE - selected answer, bar    */
+  --tq-pink-hover: #FE9CBA;   /* answer button hover            */
+  --tq-pink-deep:  #C1053B;   /* headings, labels, CTA          */
+  --tq-pink-deep-hover: #A40532; /* CTA hover                   */
+  --tq-rose-ink:   #333333;   /* SITE - body text               */
+  --tq-muted:      #8A4257;   /* small print                    */
+  --tq-line:       #FFC9D4;   /* hairlines / card border        */
+  --tq-track:      #FEAEC6;   /* empty part of the progress bar */
 
   /* --- shape & spacing --- */
   --tq-radius:     18px;
   --tq-radius-sm:  14px;
-  --tq-shadow:     0 10px 30px rgba(190, 4, 76, .10);
+  --tq-shadow:     0 10px 30px rgba(193, 5, 59, .10);
   --tq-maxw:       620px;
 
   /* --- type --- */
-  --tq-font:       ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --tq-font:       Montserrat, Poppins, ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --tq-font-head:  ui-serif, Georgia, "Times New Roman", serif;
 }
 
@@ -92,7 +94,7 @@
 
 .tq-bar {
   height: 8px;
-  background: var(--tq-line);
+  background: var(--tq-track);
   border-radius: 99px;
   overflow: hidden;
 }
@@ -182,7 +184,7 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: var(--tq-pink-soft);
+  background: var(--tq-blush);
   color: var(--tq-pink-deep);
   display: flex;
   align-items: center;
@@ -326,15 +328,16 @@
 
 @media (prefers-color-scheme: dark) {
   .tq {
-    --tq-blush:     #FFEDF3;
+    --tq-blush:     #FFDBE0;
     --tq-card:      #FFFFFF;
-    --tq-pink-soft: #FEC3D7;
-    --tq-pink:      #FC73A8;
-    --tq-pink-hover:#FDB3CB;
-    --tq-pink-deep: #BE044C;
-    --tq-pink-deep-hover: #D20454;
-    --tq-rose-ink:  #000000;
-    --tq-muted:     #7A3350;
-    --tq-line:      #FEDCE8;
+    --tq-pink-soft: #FEAEC6;
+    --tq-pink:      #F47C9E;
+    --tq-pink-hover:#FE9CBA;
+    --tq-pink-deep: #C1053B;
+    --tq-pink-deep-hover: #A40532;
+    --tq-rose-ink:  #333333;
+    --tq-muted:     #8A4257;
+    --tq-line:      #FFC9D4;
+    --tq-track:     #FEAEC6;
   }
 }
