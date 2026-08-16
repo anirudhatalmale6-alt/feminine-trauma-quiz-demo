@@ -125,6 +125,42 @@ at `https://stan.store/ViennaWoodTherapy`. Both live on the `ctaText` and
 `ctaHref` lines of each result, so different endings can send people to
 different places if you ever want that.
 
+## Collecting email addresses
+
+There is an optional screen between the last question and the result that asks
+for a first name and an email address. It is **switched off** until a mailing
+list is connected, so the quiz currently runs exactly as before.
+
+Two preview pages show it working, with nothing connected behind them:
+
+- `preview-email.html` — asks, but a "no thanks" link lets people through
+- `preview-email-required.html` — no result without an email
+
+Everything about it lives in the `EMAIL_CAPTURE` block at the top of `quiz.js`
+— the wording, the consent line, the button text. To switch it on:
+
+```js
+enabled:    true,
+action:     "<the form address your mailing tool gives you>",
+nameField:  "<the field name it expects for a first name>",
+emailField: "<the field name it expects for an email>"
+```
+
+The form posts into a hidden frame, so the page never reloads and the visitor
+goes straight to their result.
+
+**Check a real signup arrives before you rely on it.** Because the form posts
+without waiting for an answer, a wrong address fails silently — the visitor
+still sees their result and nothing looks broken, but nobody joins the list.
+Sign yourself up once and confirm you appear in the list.
+
+A few notes on the data, since these are people in a vulnerable moment:
+
+- The consent box starts unticked and the form will not submit without it
+- Turn on double opt-in in your mailing tool, so nobody is added by a typo
+- Add your privacy page to `privacyText` / `privacyHref` and it appears as a
+  link under the consent line
+
 ## What it does
 
 - One question per screen, no splash screen
@@ -155,5 +191,17 @@ Checked in Chromium via Playwright:
 - No console errors, no JavaScript errors
 - Zero horizontal overflow at 320 / 360 / 390 / 412 / 430 / 540 / 767 / 1024 px
 - Contrast measured on the rendered page rather than on paper: every piece of
-  text on both the question and result screens meets WCAG AA against the
+  text on the question, email and result screens meets WCAG AA against the
   background it actually sits on
+
+On the email screen specifically:
+
+- The main quiz is unchanged with the screen switched off — it still runs
+  straight from the last question to the result
+- Empty email, malformed email and an unticked consent box are each refused,
+  and none of them let anyone slip through to the result
+- A real signup was posted to a test server: first name, email and consent all
+  arrived with the right field names, and the page did not reload
+- Skip link, Back to question 8 with the answer still selected, and restart
+  all behave
+- No sideways scrolling at 320 / 360 / 390 / 412 / 430 / 540 / 767 px

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview - email step, required</title>
+<link rel="stylesheet" href="quiz.css">
+<!-- Demo page only. Your own site already sets these. -->
+<style>html,body{margin:0;padding:0;background:#FFDBE0;}</style>
+</head>
+<body>
+
+<!-- ============================================================
+     Drop-in block. Everything the quiz needs lives inside
+     <div id="tq-quiz">. Styles: quiz.css   Logic: quiz.js
+     ============================================================ -->
+
+<div id="tq-quiz" class="tq" aria-live="polite">
+ <div class="tq-inner">
+
+  <!-- progress -->
+  <div class="tq-progress" role="group" aria-label="Progress">
+    <div class="tq-progress-head">
+      <span class="tq-step" id="tq-step-label">Question 1 of 8</span>
+      <span class="tq-pct" id="tq-pct">12%</span>
+    </div>
+    <div class="tq-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="12" id="tq-bar-outer">
+      <div class="tq-bar-fill" id="tq-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- one screen at a time -->
+  <div class="tq-card">
+    <div class="tq-screen" id="tq-screen">
+      <!-- rendered by quiz.js -->
+    </div>
+  </div>
+
+  <div class="tq-foot">
+    <button type="button" class="tq-back" id="tq-back" hidden>&larr; Back</button>
+    <p class="tq-note" id="tq-note">This is a gentle self-reflection, not a diagnosis.</p>
+  </div>
+
+ </div>
+</div>
+
+<script>window.TQ_CONFIG = { enabled: true, required: true };</script>
+<script src="quiz.js"></script>
+</body>
+</html>

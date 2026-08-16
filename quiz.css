@@ -200,6 +200,91 @@
   font-weight: 600;
 }
 
+/* ---------- email capture ---------- */
+
+.tq-blurb {
+  margin: -10px 0 20px;
+  font-size: 1rem;
+}
+
+.tq-form { margin: 0; }
+
+.tq-sink {
+  display: none;
+  width: 0;
+  height: 0;
+  border: 0;
+}
+
+.tq-field { margin-bottom: 14px; }
+
+.tq-field label {
+  display: block;
+  font-size: .82rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.tq-field input {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--tq-rose-ink);
+  background: var(--tq-card);
+  border: 1.5px solid var(--tq-line);
+  border-radius: var(--tq-radius-sm);
+  padding: 13px 15px;
+  transition: border-color .15s ease;
+}
+
+.tq-field input:focus {
+  outline: 3px solid var(--tq-pink-deep);
+  outline-offset: 2px;
+  border-color: var(--tq-pink-deep);
+}
+
+.tq-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .9rem;
+  line-height: 1.45;
+  margin: 18px 0 4px;
+  cursor: pointer;
+}
+
+.tq-consent input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 3px 0 0;
+  accent-color: var(--tq-pink-deep);
+}
+
+.tq-privacy {
+  margin: 10px 0 0;
+  font-size: .82rem;
+}
+
+.tq-privacy a { color: var(--tq-pink-deep); }
+
+/* Empty until something is wrong, so it takes up no room. */
+.tq-error {
+  margin: 10px 0 0;
+  font-size: .88rem;
+  font-weight: 600;
+  color: #9E1B1B;
+}
+
+.tq-error:empty { display: none; }
+
+.tq-submit {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 18px;
+}
+
 /* ---------- result ---------- */
 
 .tq-result-mark {

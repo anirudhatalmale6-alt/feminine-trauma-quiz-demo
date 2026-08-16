@@ -181,6 +181,53 @@ var QUIZ_NOTE   = "This is a gentle self-reflection, not a diagnosis.";
 var SAFETY_NOTE = "If you are in immediate danger, please contact your local emergency services.";
 
 /* ============================================================
+   EMAIL CAPTURE — a screen between the last question and the
+   result. Switched OFF until your mailing list is connected.
+
+   To turn it on:
+     1. enabled: true
+     2. action:  the form address your mailing tool gives you
+     3. nameField / emailField: the field names it expects
+   Then send yourself a test signup and check it arrives.
+
+   required: false  -> asks for the email, but a "no thanks" link
+                       lets people through to their result
+   required: true   -> the result is not shown without an email
+   ============================================================ */
+var EMAIL_CAPTURE = {
+  enabled:  false,
+  required: false,
+
+  eyebrow:  "Almost there",
+  title:    "Where shall I send your result?",
+  blurb:    "Add your details and I will email your result to you, so you can come back to it in your own time.",
+
+  nameLabel:   "First name",
+  emailLabel:  "Email address",
+  consent:     "Yes, please email me my result and occasional support and resources. I can unsubscribe at any time.",
+  privacyText: "",   /* e.g. "How I look after your information" */
+  privacyHref: "",   /* e.g. "https://viennawoodtherapy.co.uk/privacy" */
+
+  buttonText:  "Show my result",
+  skipText:    "No thanks, just show my result",
+
+  /* Filled in once you have picked a mailing tool. */
+  action:      "",
+  nameField:   "fields[first_name]",
+  emailField:  "email_address"
+};
+
+/* Lets a page switch these on without editing this file — used by
+   the preview page. Harmless if you never set TQ_CONFIG. */
+if (typeof window !== "undefined" && window.TQ_CONFIG) {
+  for (var _k in window.TQ_CONFIG) {
+    if (Object.prototype.hasOwnProperty.call(window.TQ_CONFIG, _k)) {
+      EMAIL_CAPTURE[_k] = window.TQ_CONFIG[_k];
+    }
+  }
+}
+
+/* ============================================================
    Below here is the machinery. You shouldn't need to edit it.
    ============================================================ */
 
@@ -199,6 +246,7 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
   var index       = 0;          // current question
   var answers     = [];         // chosen weight per question
   var selectedIdx = [];         // which option was picked (for the Back view)
+  var onEmail     = false;      // sitting on the email screen
 
   function esc(s) {
     return String(s)
@@ -236,6 +284,7 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
 
     html += "</ul>";
     screenEl.innerHTML = html;
+    onEmail = false;
 
     setProgress(index);
     backBtn.hidden = index === 0;
@@ -254,6 +303,8 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
     if (index < QUESTIONS.length - 1) {
       index++;
       renderQuestion();
+    } else if (EMAIL_CAPTURE.enabled) {
+      renderEmail();
     } else {
       renderResult();
     }
@@ -270,6 +321,92 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
       if (score <= RESULTS[i].upTo) return RESULTS[i];
     }
     return RESULTS[RESULTS.length - 1];
+  }
+
+  function validEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  }
+
+  function renderEmail() {
+    var C = EMAIL_CAPTURE;
+    var html = "";
+
+    if (C.eyebrow) html += '<p class="tq-eyebrow">' + esc(C.eyebrow) + "</p>";
+    html += '<h1 class="tq-q">' + esc(C.title) + "</h1>";
+    if (C.blurb) html += '<p class="tq-blurb">' + esc(C.blurb) + "</p>";
+
+    /* The form posts into a hidden frame, so the page never reloads
+       and the visitor goes straight to their result. */
+    html += '<iframe name="tq-sink" class="tq-sink" title="" tabindex="-1"></iframe>';
+    html += '<form class="tq-form" id="tq-form" method="post" target="tq-sink" novalidate' +
+            (C.action ? ' action="' + esc(C.action) + '"' : "") + ">";
+
+    html += '<div class="tq-field"><label for="tq-name">' + esc(C.nameLabel) + "</label>" +
+            '<input type="text" id="tq-name" name="' + esc(C.nameField) +
+            '" autocomplete="given-name"></div>';
+
+    html += '<div class="tq-field"><label for="tq-email">' + esc(C.emailLabel) + "</label>" +
+            '<input type="email" id="tq-email" name="' + esc(C.emailField) +
+            '" autocomplete="email" aria-describedby="tq-err" required></div>';
+
+    html += '<label class="tq-consent"><input type="checkbox" id="tq-consent" name="consent" value="yes">' +
+            "<span>" + esc(C.consent) + "</span></label>";
+
+    if (C.privacyText && C.privacyHref) {
+      html += '<p class="tq-privacy"><a href="' + esc(C.privacyHref) +
+              '" target="_blank" rel="noopener">' + esc(C.privacyText) + "</a></p>";
+    }
+
+    html += '<p class="tq-error" id="tq-err" role="alert"></p>';
+    html += '<button type="submit" class="tq-cta tq-submit">' + esc(C.buttonText) + "</button>";
+    html += "</form>";
+
+    if (!C.required && C.skipText) {
+      html += '<button type="button" class="tq-restart" id="tq-skip">' + esc(C.skipText) + "</button>";
+    }
+
+    screenEl.innerHTML = html;
+    onEmail = true;
+
+    setProgress(QUESTIONS.length);
+    if (C.eyebrow) stepEl.textContent = C.eyebrow;
+    backBtn.hidden = false;
+    if (noteEl) noteEl.hidden = false;
+
+    var form = document.getElementById("tq-form");
+    var err  = document.getElementById("tq-err");
+
+    form.addEventListener("submit", function (e) {
+      var email   = document.getElementById("tq-email");
+      var consent = document.getElementById("tq-consent");
+      var problem = "";
+
+      if (!email.value.trim())          problem = "Please add your email address.";
+      else if (!validEmail(email.value)) problem = "That email address does not look quite right.";
+      else if (!consent.checked)        problem = "Please tick the box so I know it is alright to email you.";
+
+      if (problem) {
+        e.preventDefault();
+        err.textContent = problem;
+        (problem.indexOf("box") > -1 ? consent : email).focus();
+        return;
+      }
+
+      err.textContent = "";
+      /* No address set yet? Then nothing to post — just carry on. */
+      if (!C.action) e.preventDefault();
+      onEmail = false;
+      setTimeout(renderResult, C.action ? 400 : 0);
+    });
+
+    var skip = document.getElementById("tq-skip");
+    if (skip) skip.addEventListener("click", function () { onEmail = false; renderResult(); });
+
+    /* Focus the heading, not the first box — putting the cursor in a
+       field pops the keyboard open on a phone the moment the screen
+       appears, which feels pushy right after the last question. */
+    var head = screenEl.querySelector(".tq-q");
+    if (head) { head.setAttribute("tabindex", "-1"); head.focus(); }
   }
 
   function renderResult() {
@@ -303,6 +440,7 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
     html += "</div>";
 
     screenEl.innerHTML = html;
+    onEmail = false;
 
     setProgress(QUESTIONS.length);
     backBtn.hidden = true;
@@ -325,12 +463,14 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
       index = 0;
       answers = [];
       selectedIdx = [];
+      onEmail = false;
       if (noteEl) noteEl.textContent = QUIZ_NOTE;
       renderQuestion();
     }
   });
 
   backBtn.addEventListener("click", function () {
+    if (onEmail) { onEmail = false; renderQuestion(); return; }  // back to the last question
     if (index > 0) { index--; renderQuestion(); }
   });
 
