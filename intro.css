@@ -120,12 +120,12 @@
   padding: 14px 0 6px;
 }
 
-/* Sits on the pink page background rather than a white card, so it
-   takes the deeper rose — see the note in quiz.css. */
+/* Sits on the pink page background rather than a white card, where
+   the pink would drop to 2.0:1 — see the note in quiz.css. */
 .vw-lead {
   font-family: var(--tq-font-head);
   font-size: 1.35rem;
-  color: var(--tq-pink-deep-hover);
+  color: var(--tq-rose-ink);
   margin: 0 0 18px;
 }
 
@@ -147,7 +147,7 @@
 .vw-cta:hover { background: var(--tq-pink-hover); }
 
 .vw-cta:focus-visible {
-  outline: 3px solid var(--tq-pink-deep);
+  outline: 3px solid var(--tq-rose-ink);
   outline-offset: 3px;
 }
 
@@ -231,11 +231,10 @@
     --tq-pink-soft: #FEAEC6;
     --tq-pink:      #F47C9E;
     --tq-pink-hover:#FE9CBA;
-    --tq-pink-deep: #BF4064;
-    --tq-pink-deep-hover: #A63656;
+    --tq-pink-deep: #F47C9E;
     --tq-rose-ink:  #333333;
     --tq-muted:     #8A4257;
     --tq-line:      #FFC9D4;
-    --tq-track:     #FEAEC6;
+    --tq-track:     #FFFFFF;
   }
 }

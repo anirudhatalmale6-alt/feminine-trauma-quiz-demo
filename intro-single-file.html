@@ -25,30 +25,40 @@
          #FFDBE0  pale pink   -> your pale section backgrounds
          #333333  charcoal    -> your body text
 
-     One shade is DERIVED, because #F47C9E cannot be used as text:
-     against white it only reaches 2.6:1, and readable text needs
-     4.5:1. So headings use a deeper rose of the same hue:
-         #BF4064  deep rose   -> headings and small labels
-     The "Book a free 15 minute call" button uses your actual site
-     pink #F47C9E with charcoal text (4.95:1) rather than white
-     text, because white on that pink is only 2.6:1.
+     There are NO invented colours here any more. Headings use your
+     own #F47C9E, exactly as they do on your website.
+
+     Worth knowing: #F47C9E on white measures 2.6:1, where the
+     readable standard for text is 4.5:1. Your website already does
+     this, so the quiz now matches it. If anyone ever tells you the
+     small uppercase labels are hard to read, change --tq-pink-deep
+     to #333333 and they become charcoal.
+
+     Two places do NOT use the pink, because it sits on the pale
+     pink background there rather than on a white card, and drops
+     to 2.0:1 — near enough invisible. Those use your charcoal:
+     the percentage on the progress bar, and "Take this quiz to
+     find out" on the intro page.
+
+     Buttons use the pink as a BACKGROUND with charcoal text
+     (4.95:1) rather than white text, because white on that pink
+     is the same unreadable 2.6:1.
      ---------------------------------------------------------- */
   --tq-blush:      #FFDBE0;   /* SITE - page / outer background */
   --tq-card:       #FFFFFF;   /* card surface                   */
   --tq-pink-soft:  #FEAEC6;   /* SITE - answer buttons          */
   --tq-pink:       #F47C9E;   /* SITE - selected answer, bar    */
   --tq-pink-hover: #FE9CBA;   /* answer button hover            */
-  --tq-pink-deep:  #BF4064;   /* headings, small labels         */
-  --tq-pink-deep-hover: #A63656; /* same rose, deeper: text on pink */
+  --tq-pink-deep:  #F47C9E;   /* SITE - headings, small labels  */
   --tq-rose-ink:   #333333;   /* SITE - body text               */
   --tq-muted:      #8A4257;   /* small print                    */
   --tq-line:       #FFC9D4;   /* hairlines / card border        */
-  --tq-track:      #FEAEC6;   /* empty part of the progress bar */
+  --tq-track:      #FFFFFF;   /* empty part of the progress bar */
 
   /* --- shape & spacing --- */
   --tq-radius:     18px;
   --tq-radius-sm:  14px;
-  --tq-shadow:     0 10px 30px rgba(191, 64, 100, .14);
+  --tq-shadow:     0 10px 30px rgba(244, 124, 158, .22);
   --tq-maxw:       620px;
 
   /* --- type --- */
@@ -114,12 +124,13 @@
   color: var(--tq-muted);
 }
 
-/* The percentage sits on the pink page background rather than on the
-   white card, so it uses the deeper shade to stay readable there. */
+/* The percentage sits on the pink page background rather than on a
+   white card. The pink on pink is 2.0:1 and all but disappears, so
+   this one uses your charcoal instead. */
 .tq-pct {
   font-size: .82rem;
   font-weight: 600;
-  color: var(--tq-pink-deep-hover);
+  color: var(--tq-rose-ink);
 }
 
 .tq-bar {
@@ -133,7 +144,7 @@
   height: 100%;
   width: 12.5%;
   border-radius: 99px;
-  background: linear-gradient(90deg, var(--tq-pink-deep) 0%, var(--tq-pink) 100%);
+  background: var(--tq-pink);
   transition: width .35s ease;   /* remove this line for zero motion */
 }
 
@@ -197,13 +208,13 @@
 }
 
 .tq-option:focus-visible {
-  outline: 3px solid var(--tq-pink-deep);
+  outline: 3px solid var(--tq-rose-ink);
   outline-offset: 2px;
 }
 
 .tq-option.is-selected {
   background: var(--tq-pink);
-  border-color: var(--tq-pink-deep);
+  border-color: var(--tq-rose-ink);
   color: var(--tq-rose-ink);
   font-weight: 600;
 }
@@ -246,9 +257,9 @@
 }
 
 .tq-field input:focus {
-  outline: 3px solid var(--tq-pink-deep);
+  outline: 3px solid var(--tq-rose-ink);
   outline-offset: 2px;
-  border-color: var(--tq-pink-deep);
+  border-color: var(--tq-pink);
 }
 
 .tq-consent {
@@ -274,7 +285,7 @@
   font-size: .82rem;
 }
 
-.tq-privacy a { color: var(--tq-pink-deep); }
+.tq-privacy a { color: var(--tq-rose-ink); }
 
 /* Empty until something is wrong, so it takes up no room. */
 .tq-error {
@@ -295,18 +306,23 @@
 
 /* ---------- result ---------- */
 
+/* Solid pink disc with a white flower cut out of it. The flower used
+   to be pink on pale pink, which at 2.0:1 barely showed up. */
 .tq-result-mark {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: var(--tq-blush);
-  color: var(--tq-pink-deep);
+  background: var(--tq-pink);
+  color: var(--tq-card);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
   margin-bottom: 16px;
 }
+
+/* The hole in the middle of the flower — matches the disc behind it */
+.tq-result-mark .tq-flower-hole { fill: var(--tq-pink); }
 
 .tq-result h2 {
   font-family: var(--tq-font-head);
@@ -380,7 +396,7 @@
 .tq-cta:hover { background: var(--tq-pink-hover); }
 
 .tq-cta:focus-visible {
-  outline: 3px solid var(--tq-pink-deep);
+  outline: 3px solid var(--tq-rose-ink);
   outline-offset: 2px;
 }
 
@@ -417,7 +433,7 @@
   padding: 4px 2px;
 }
 
-.tq-back:hover { color: var(--tq-pink-deep-hover); }
+.tq-back:hover { color: var(--tq-rose-ink); }
 
 .tq-note {
   margin: 0;
@@ -455,12 +471,11 @@
     --tq-pink-soft: #FEAEC6;
     --tq-pink:      #F47C9E;
     --tq-pink-hover:#FE9CBA;
-    --tq-pink-deep: #BF4064;
-    --tq-pink-deep-hover: #A63656;
+    --tq-pink-deep: #F47C9E;
     --tq-rose-ink:  #333333;
     --tq-muted:     #8A4257;
     --tq-line:      #FFC9D4;
-    --tq-track:     #FEAEC6;
+    --tq-track:     #FFFFFF;
   }
 }
 
@@ -588,12 +603,12 @@
   padding: 14px 0 6px;
 }
 
-/* Sits on the pink page background rather than a white card, so it
-   takes the deeper rose — see the note in quiz.css. */
+/* Sits on the pink page background rather than a white card, where
+   the pink would drop to 2.0:1 — see the note in quiz.css. */
 .vw-lead {
   font-family: var(--tq-font-head);
   font-size: 1.35rem;
-  color: var(--tq-pink-deep-hover);
+  color: var(--tq-rose-ink);
   margin: 0 0 18px;
 }
 
@@ -615,7 +630,7 @@
 .vw-cta:hover { background: var(--tq-pink-hover); }
 
 .vw-cta:focus-visible {
-  outline: 3px solid var(--tq-pink-deep);
+  outline: 3px solid var(--tq-rose-ink);
   outline-offset: 3px;
 }
 
@@ -699,12 +714,11 @@
     --tq-pink-soft: #FEAEC6;
     --tq-pink:      #F47C9E;
     --tq-pink-hover:#FE9CBA;
-    --tq-pink-deep: #BF4064;
-    --tq-pink-deep-hover: #A63656;
+    --tq-pink-deep: #F47C9E;
     --tq-rose-ink:  #333333;
     --tq-muted:     #8A4257;
     --tq-line:      #FFC9D4;
-    --tq-track:     #FEAEC6;
+    --tq-track:     #FFFFFF;
   }
 }
 

@@ -112,7 +112,7 @@ var FLOWER =
   '<circle cx="15.1" cy="16.4" r="4.3"/>' +
   '<circle cx="8.9"  cy="16.4" r="4.3"/>' +
   '<circle cx="6.9"  cy="10.3" r="4.3"/>' +
-  '<circle cx="12"   cy="12"   r="2.9" fill="#fff"/></svg>';
+  '<circle cx="12"   cy="12"   r="2.9" class="tq-flower-hole"/></svg>';
 
 /* Shown once, after the final question. "upTo" is the highest
    total score that lands on this ending. Keep them in order.

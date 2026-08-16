@@ -67,12 +67,11 @@ will sit on. They all live at the top of `quiz.css`:
   --tq-pink-soft:  #FEAEC6;   /* SITE - answer buttons          */
   --tq-pink:       #F47C9E;   /* SITE - selected answer, bar    */
   --tq-pink-hover: #FE9CBA;   /* answer button hover            */
-  --tq-pink-deep:  #BF4064;   /* headings, small labels         */
-  --tq-pink-deep-hover: #A63656; /* same rose, deeper           */
+  --tq-pink-deep:  #F47C9E;   /* SITE - headings, small labels  */
   --tq-rose-ink:   #333333;   /* SITE - body text               */
   --tq-muted:      #8A4257;   /* small print                    */
   --tq-line:       #FFC9D4;   /* hairlines / card border        */
-  --tq-track:      #FEAEC6;   /* empty part of the progress bar */
+  --tq-track:      #FFFFFF;   /* empty part of the progress bar */
 }
 ```
 
@@ -81,19 +80,25 @@ copy of the palette in the `@media (prefers-color-scheme: dark)` block at the
 bottom of the same file too — that block is what stops Android phones in auto
 dark mode from repainting the quiz in their own grey colours.
 
-**Why headings are not #F47C9E.** Your site pink is lovely as a background but
-it cannot be used as text: against white it reaches only 2.6:1 contrast, and
-readable text needs 4.5:1. `--tq-pink-deep` (#BF4064) is a deeper rose of the
-same hue, used anywhere the pink has to be *read* rather than *seen*.
+**Headings use your own #F47C9E**, exactly as they do on your website. There
+are no invented shades in here.
 
-`--tq-pink-deep-hover` (#A63656) is that same rose one step deeper again. It
-is used for the small text that sits on the pink page background rather than
-on the white card — the percentage, and the Back link on hover — where #BF4064
-would drop to 4.0:1.
+One thing to be aware of, so that it is your decision and not a surprise:
+#F47C9E on white measures **2.6:1**, and the accepted standard for readable
+text is 4.5:1 for normal sizes, or 3:1 for large headings. Your own website
+already uses the pink this way, so the quiz now matches it — but the small
+uppercase labels are the ones some people will struggle with. If that ever
+comes up, change `--tq-pink-deep` to `#333333` and every label turns charcoal
+in one edit. The big headings will still be pink.
 
-The **Book a free 15 minute call** button is your actual site pink #F47C9E
-with charcoal text, not white text: white on that pink is 2.6:1, charcoal is
-4.95:1. Selected answers do the same thing for the same reason.
+Two places deliberately do **not** use the pink, because there it sits on the
+pale pink background rather than a white card and drops to 2.0:1, which is
+close to invisible. Those use your charcoal instead: the percentage on the
+progress bar, and "Take this quiz to find out" on the intro page.
+
+Buttons use the pink as a *background* with charcoal text, not white text:
+white on that pink is the same unreadable 2.6:1, while charcoal on it is
+4.95:1 and passes comfortably. Selected answers do the same thing.
 
 The body font stack starts with `Montserrat`, which your site already loads, so
 on viennawoodtherapy.co.uk the quiz picks up your own typeface automatically.
@@ -220,9 +225,11 @@ Checked in Chromium via Playwright:
   including the scrollbar arithmetic, with no sideways scroll
 - No console errors, no JavaScript errors
 - Zero horizontal overflow at 320 / 360 / 390 / 412 / 430 / 540 / 767 / 1024 px
-- Contrast measured on the rendered page rather than on paper: every piece of
-  text on the question, email and result screens meets WCAG AA against the
-  background it actually sits on
+- Contrast measured on the rendered page rather than on paper. Everything meets
+  WCAG AA against the background it actually sits on, apart from the pink text
+  on white, which is your brand colour and your decision — that is listed as a
+  known exception in the checks, so anything *else* slipping below the line
+  still shows up as a failure
 
 On the email screen specifically:
 
