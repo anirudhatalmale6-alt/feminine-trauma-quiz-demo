@@ -26,16 +26,19 @@
 
      One shade is DERIVED, because #F47C9E cannot be used as text:
      against white it only reaches 2.6:1, and readable text needs
-     4.5:1. So headings use a darker version of the same pink:
-         #C1053B  deep pink   -> headings, small labels, CTA button
+     4.5:1. So headings use a deeper rose of the same hue:
+         #BF4064  deep rose   -> headings and small labels
+     The "Book a free 15 minute call" button uses your actual site
+     pink #F47C9E with charcoal text (4.95:1) rather than white
+     text, because white on that pink is only 2.6:1.
      ---------------------------------------------------------- */
   --tq-blush:      #FFDBE0;   /* SITE - page / outer background */
   --tq-card:       #FFFFFF;   /* card surface                   */
   --tq-pink-soft:  #FEAEC6;   /* SITE - answer buttons          */
   --tq-pink:       #F47C9E;   /* SITE - selected answer, bar    */
   --tq-pink-hover: #FE9CBA;   /* answer button hover            */
-  --tq-pink-deep:  #C1053B;   /* headings, labels, CTA          */
-  --tq-pink-deep-hover: #A40532; /* CTA hover                   */
+  --tq-pink-deep:  #BF4064;   /* headings, small labels         */
+  --tq-pink-deep-hover: #A63656; /* same rose, deeper: text on pink */
   --tq-rose-ink:   #333333;   /* SITE - body text               */
   --tq-muted:      #8A4257;   /* small print                    */
   --tq-line:       #FFC9D4;   /* hairlines / card border        */
@@ -44,7 +47,7 @@
   /* --- shape & spacing --- */
   --tq-radius:     18px;
   --tq-radius-sm:  14px;
-  --tq-shadow:     0 10px 30px rgba(193, 5, 59, .10);
+  --tq-shadow:     0 10px 30px rgba(191, 64, 100, .14);
   --tq-maxw:       620px;
 
   /* --- type --- */
@@ -62,17 +65,34 @@
 .tq,
 .tq * { box-sizing: border-box; }
 
+/* The pink fills the full width of whatever it sits in; the quiz
+   itself stays a comfortable reading width, centred inside it. */
 .tq {
   font-family: var(--tq-font);
   color: var(--tq-rose-ink);
   background: var(--tq-blush);
-  max-width: var(--tq-maxw);
-  margin: 0 auto;
-  padding: 28px 20px 36px;
-  border-radius: var(--tq-radius);
+  width: 100%;
+  margin: 0;
+  padding: 44px 20px 52px;
   -webkit-font-smoothing: antialiased;
   text-align: left;
   line-height: 1.55;
+}
+
+.tq-inner {
+  max-width: var(--tq-maxw);
+  margin: 0 auto;
+}
+
+/* OPTIONAL — only if your theme wraps page content in a narrow
+   column and you want the pink to reach the very edges of the
+   screen anyway. Add it as a second class on the quiz div:
+       <div id="tq-quiz" class="tq tq-bleed"> ...
+   Leave it off and the pink simply fills its container. */
+.tq-bleed {
+  width: auto;
+  margin-left:  calc(50% - 50vw + (var(--tq-sb, 0px) / 2));
+  margin-right: calc(50% - 50vw + (var(--tq-sb, 0px) / 2));
 }
 
 /* ---------- progress ---------- */
@@ -93,10 +113,12 @@
   color: var(--tq-muted);
 }
 
+/* The percentage sits on the pink page background rather than on the
+   white card, so it uses the deeper shade to stay readable there. */
 .tq-pct {
   font-size: .82rem;
   font-weight: 600;
-  color: var(--tq-pink-deep);
+  color: var(--tq-pink-deep-hover);
 }
 
 .tq-bar {
@@ -110,7 +132,7 @@
   height: 100%;
   width: 12.5%;
   border-radius: 99px;
-  background: linear-gradient(90deg, var(--tq-pink) 0%, var(--tq-pink-deep) 100%);
+  background: linear-gradient(90deg, var(--tq-pink-deep) 0%, var(--tq-pink) 100%);
   transition: width .35s ease;   /* remove this line for zero motion */
 }
 
@@ -216,10 +238,12 @@
 
 .tq-result p:last-of-type { margin-bottom: 0; }
 
-/* small pink heading above a result paragraph
-   ("What your results mean", "An Inner Child Perspective") */
+/* Pink heading above a result paragraph
+   ("What your results mean", "An Inner Child Perspective").
+   Same size as the paragraphs, set apart by caps + letter-spacing.
+   Drop to .76rem if you ever want them smaller. */
 .tq-body-label {
-  font-size: .76rem;
+  font-size: 1rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--tq-pink-deep);
@@ -255,8 +279,8 @@
 .tq-cta {
   display: inline-block;
   margin-top: 20px;
-  background: var(--tq-pink-deep);
-  color: #fff;
+  background: var(--tq-pink);
+  color: var(--tq-rose-ink);
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -267,7 +291,12 @@
   font-family: inherit;
 }
 
-.tq-cta:hover { background: var(--tq-pink-deep-hover); }
+.tq-cta:hover { background: var(--tq-pink-hover); }
+
+.tq-cta:focus-visible {
+  outline: 3px solid var(--tq-pink-deep);
+  outline-offset: 2px;
+}
 
 .tq-restart {
   display: block;
@@ -302,7 +331,7 @@
   padding: 4px 2px;
 }
 
-.tq-back:hover { color: var(--tq-pink-deep); }
+.tq-back:hover { color: var(--tq-pink-deep-hover); }
 
 .tq-note {
   margin: 0;
@@ -314,7 +343,7 @@
 /* ---------- phones ---------- */
 
 @media (max-width: 480px) {
-  .tq        { padding: 20px 14px 28px; border-radius: 0; }
+  .tq        { padding: 24px 14px 30px; }
   .tq-card   { padding: 22px 18px; }
   .tq-q      { font-size: 1.3rem; }
   .tq-option { padding: 14px 15px; font-size: .97rem; }
@@ -340,8 +369,8 @@
     --tq-pink-soft: #FEAEC6;
     --tq-pink:      #F47C9E;
     --tq-pink-hover:#FE9CBA;
-    --tq-pink-deep: #C1053B;
-    --tq-pink-deep-hover: #A40532;
+    --tq-pink-deep: #BF4064;
+    --tq-pink-deep-hover: #A63656;
     --tq-rose-ink:  #333333;
     --tq-muted:     #8A4257;
     --tq-line:      #FFC9D4;
@@ -350,6 +379,8 @@
 }
 
 </style>
+<!-- Demo page only. Your own site already sets these. -->
+<style>html,body{margin:0;padding:0;background:#FFDBE0;}</style>
 </head>
 <body>
 
@@ -359,6 +390,7 @@
      ============================================================ -->
 
 <div id="tq-quiz" class="tq" aria-live="polite">
+ <div class="tq-inner">
 
   <!-- progress -->
   <div class="tq-progress" role="group" aria-label="Progress">
@@ -383,6 +415,7 @@
     <p class="tq-note" id="tq-note">This is a gentle self-reflection, not a diagnosis.</p>
   </div>
 
+ </div>
 </div>
 
 <script>
@@ -415,7 +448,7 @@ var QUESTIONS = [
     options: [
       { text: "I feel safe and comfortable expressing myself, even if we end up disagreeing.", weight: 0 },
       { text: "I hesitate, but I usually bring things up after a little while.", weight: 1 },
-      { text: "I carefully gauge their mood first and often decide it’s safer to keep my feelings to myself to avoid a blowout or cold shoulder.", weight: 2 },
+      { text: "I carefully gauge their mood first and often decide it’s safer to keep my feelings to myself to avoid an argument or getting the silent treatment.", weight: 2 },
       { text: "I feel intense anxiety or terror. I hide my true self because speaking up usually results in severe emotional punishment, rage, or total withdrawal.", weight: 3 }
     ]
   },
@@ -466,7 +499,7 @@ var QUESTIONS = [
       { text: "My body feels relaxed, grounded, and at ease.", weight: 0 },
       { text: "Mostly neutral or relaxed, unless we are in the middle of an active argument.", weight: 1 },
       { text: "I often feel a slight physical tightness (stomach knots, shallow breathing, neck tension) as I brace for their reaction or mood.", weight: 2 },
-      { text: "My nervous system is constantly on high alert. I monitor their tone of voice, footsteps, or text messaging cadence to sense danger before it happens.", weight: 3 }
+      { text: "My nervous system is constantly on high alert. I monitor their tone of voice, or tone of their messages to sense what kind of mood they’re in.", weight: 3 }
     ]
   },
   {
@@ -483,7 +516,7 @@ var QUESTIONS = [
     eyebrow: "Leaving vs. Staying",
     text: "Have you ever tried to leave or distance yourself from this relationship?",
     options: [
-      { text: "If a relationship isn’t working or becomes unhealthy, I am capable of ending it and staying end-focused.", weight: 0 },
+      { text: "If a relationship isn’t working or becomes unhealthy, I am capable of ending it and walking away.", weight: 0 },
       { text: "I’ve thought about leaving during bad fights, but we’ve always been able to talk through our issues constructively.", weight: 1 },
       { text: "I’ve tried to break up or pull away multiple times, but the intense panic, guilt, or their sudden return to being loving brings me right back.", weight: 2 },
       { text: "The idea of leaving fills me with unbearable grief and pain, even though staying causes me severe psychological distress. I don’t think I can live without them. I feel trapped in a cycle I can’t break.", weight: 3 }
@@ -520,8 +553,8 @@ var RESULTS = [
       { label: "An Inner Child Perspective",
         text: "Your wounded inner child is not leading the dynamic in your current relationship. You are able to access your Wise Adult self to set boundaries, express your authentic feelings, and protect your emotional well-being without fear of abandonment or retaliation." }
     ],
-    ctaText: "Book a free 20-minute call",
-    ctaHref: "#"
+    ctaText: "Book a free 15 minute call",
+    ctaHref: "https://stan.store/ViennaWoodTherapy"
   },
   {
     upTo: 11,
@@ -533,8 +566,8 @@ var RESULTS = [
       { label: "An Inner Child Perspective",
         text: "Parts of your young self may be activating when tension arises, leading you to walk on eggshells or minimise your own needs to preserve peace. Recognising these early warning signs is a powerful way to re-parent your inner child and practice setting firmer boundaries before deeper toxicity sets in." }
     ],
-    ctaText: "Book a free 20-minute call",
-    ctaHref: "#"
+    ctaText: "Book a free 15 minute call",
+    ctaHref: "https://stan.store/ViennaWoodTherapy"
   },
   {
     upTo: 18,
@@ -546,8 +579,8 @@ var RESULTS = [
       { label: "An Inner Child Perspective",
         text: "A trauma bond forms when an adult relationship mirrors the unresolved attachment wounds of childhood - where love was intermittent, conditional, or tied to keeping a caregiver calm. Your inner child is currently driving your relationship choices out of a deep survival desire to “fix” the dynamic and finally win the safe love you deserved as a child." }
     ],
-    ctaText: "Book a free 20-minute call",
-    ctaHref: "#"
+    ctaText: "Book a free 15 minute call",
+    ctaHref: "https://stan.store/ViennaWoodTherapy"
   },
   {
     upTo: 24,
@@ -557,10 +590,10 @@ var RESULTS = [
       { label: "What your results mean",
         text: "You are currently in a high-intensity trauma bond. Your nervous system is likely in a state of chronic hypervigilance (fight, flight, freeze, or fawn). The cycle of unpredictable warmth followed by emotional withdrawal or punishment has locked your body into a chemical attachment loop that feels almost impossible to break on your own." },
       { label: "An Inner Child Perspective",
-        text: "Your frightened inner child is currently running your system in survival mode. The intense terror or panic you feel at the thought of leaving is not true emotional intimacy; it is an abandonment depression response rooted in childhood developmental trauma. Please know: this is not a weakness on your part, it is a physiological and psychological biological response to chronic unpredictability." }
+        text: "Your frightened inner child is currently running your system in survival mode. The intense terror or panic you feel at the thought of leaving is not true emotional intimacy; it is an abandonment response rooted in childhood trauma. This isn’t a weakness on your part, it is a physiological and psychological response to chronic unpredictability." }
     ],
-    ctaText: "Book a free 20-minute call",
-    ctaHref: "#"
+    ctaText: "Book a free 15 minute call",
+    ctaHref: "https://stan.store/ViennaWoodTherapy"
   }
 ];
 
@@ -721,6 +754,17 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
   backBtn.addEventListener("click", function () {
     if (index > 0) { index--; renderQuestion(); }
   });
+
+  /* Only used by the optional "tq-bleed" class. 100vw includes the
+     desktop scrollbar, so a plain full-bleed overhangs by its width
+     and gives the page a sideways scroll. Measure it and hand it to
+     the CSS. Harmless if tq-bleed is not used. */
+  function measureScrollbar() {
+    var sb = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty("--tq-sb", (sb > 0 ? sb : 0) + "px");
+  }
+  measureScrollbar();
+  window.addEventListener("resize", measureScrollbar);
 
   if (noteEl) noteEl.textContent = QUIZ_NOTE;
   renderQuestion();

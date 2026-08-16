@@ -19,16 +19,19 @@
 
      One shade is DERIVED, because #F47C9E cannot be used as text:
      against white it only reaches 2.6:1, and readable text needs
-     4.5:1. So headings use a darker version of the same pink:
-         #C1053B  deep pink   -> headings, small labels, CTA button
+     4.5:1. So headings use a deeper rose of the same hue:
+         #BF4064  deep rose   -> headings and small labels
+     The "Book a free 15 minute call" button uses your actual site
+     pink #F47C9E with charcoal text (4.95:1) rather than white
+     text, because white on that pink is only 2.6:1.
      ---------------------------------------------------------- */
   --tq-blush:      #FFDBE0;   /* SITE - page / outer background */
   --tq-card:       #FFFFFF;   /* card surface                   */
   --tq-pink-soft:  #FEAEC6;   /* SITE - answer buttons          */
   --tq-pink:       #F47C9E;   /* SITE - selected answer, bar    */
   --tq-pink-hover: #FE9CBA;   /* answer button hover            */
-  --tq-pink-deep:  #C1053B;   /* headings, labels, CTA          */
-  --tq-pink-deep-hover: #A40532; /* CTA hover                   */
+  --tq-pink-deep:  #BF4064;   /* headings, small labels         */
+  --tq-pink-deep-hover: #A63656; /* same rose, deeper: text on pink */
   --tq-rose-ink:   #333333;   /* SITE - body text               */
   --tq-muted:      #8A4257;   /* small print                    */
   --tq-line:       #FFC9D4;   /* hairlines / card border        */
@@ -37,7 +40,7 @@
   /* --- shape & spacing --- */
   --tq-radius:     18px;
   --tq-radius-sm:  14px;
-  --tq-shadow:     0 10px 30px rgba(193, 5, 59, .10);
+  --tq-shadow:     0 10px 30px rgba(191, 64, 100, .14);
   --tq-maxw:       620px;
 
   /* --- type --- */
@@ -55,17 +58,34 @@
 .tq,
 .tq * { box-sizing: border-box; }
 
+/* The pink fills the full width of whatever it sits in; the quiz
+   itself stays a comfortable reading width, centred inside it. */
 .tq {
   font-family: var(--tq-font);
   color: var(--tq-rose-ink);
   background: var(--tq-blush);
-  max-width: var(--tq-maxw);
-  margin: 0 auto;
-  padding: 28px 20px 36px;
-  border-radius: var(--tq-radius);
+  width: 100%;
+  margin: 0;
+  padding: 44px 20px 52px;
   -webkit-font-smoothing: antialiased;
   text-align: left;
   line-height: 1.55;
+}
+
+.tq-inner {
+  max-width: var(--tq-maxw);
+  margin: 0 auto;
+}
+
+/* OPTIONAL — only if your theme wraps page content in a narrow
+   column and you want the pink to reach the very edges of the
+   screen anyway. Add it as a second class on the quiz div:
+       <div id="tq-quiz" class="tq tq-bleed"> ...
+   Leave it off and the pink simply fills its container. */
+.tq-bleed {
+  width: auto;
+  margin-left:  calc(50% - 50vw + (var(--tq-sb, 0px) / 2));
+  margin-right: calc(50% - 50vw + (var(--tq-sb, 0px) / 2));
 }
 
 /* ---------- progress ---------- */
@@ -86,10 +106,12 @@
   color: var(--tq-muted);
 }
 
+/* The percentage sits on the pink page background rather than on the
+   white card, so it uses the deeper shade to stay readable there. */
 .tq-pct {
   font-size: .82rem;
   font-weight: 600;
-  color: var(--tq-pink-deep);
+  color: var(--tq-pink-deep-hover);
 }
 
 .tq-bar {
@@ -103,7 +125,7 @@
   height: 100%;
   width: 12.5%;
   border-radius: 99px;
-  background: linear-gradient(90deg, var(--tq-pink) 0%, var(--tq-pink-deep) 100%);
+  background: linear-gradient(90deg, var(--tq-pink-deep) 0%, var(--tq-pink) 100%);
   transition: width .35s ease;   /* remove this line for zero motion */
 }
 
@@ -209,10 +231,12 @@
 
 .tq-result p:last-of-type { margin-bottom: 0; }
 
-/* small pink heading above a result paragraph
-   ("What your results mean", "An Inner Child Perspective") */
+/* Pink heading above a result paragraph
+   ("What your results mean", "An Inner Child Perspective").
+   Same size as the paragraphs, set apart by caps + letter-spacing.
+   Drop to .76rem if you ever want them smaller. */
 .tq-body-label {
-  font-size: .76rem;
+  font-size: 1rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--tq-pink-deep);
@@ -248,8 +272,8 @@
 .tq-cta {
   display: inline-block;
   margin-top: 20px;
-  background: var(--tq-pink-deep);
-  color: #fff;
+  background: var(--tq-pink);
+  color: var(--tq-rose-ink);
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -260,7 +284,12 @@
   font-family: inherit;
 }
 
-.tq-cta:hover { background: var(--tq-pink-deep-hover); }
+.tq-cta:hover { background: var(--tq-pink-hover); }
+
+.tq-cta:focus-visible {
+  outline: 3px solid var(--tq-pink-deep);
+  outline-offset: 2px;
+}
 
 .tq-restart {
   display: block;
@@ -295,7 +324,7 @@
   padding: 4px 2px;
 }
 
-.tq-back:hover { color: var(--tq-pink-deep); }
+.tq-back:hover { color: var(--tq-pink-deep-hover); }
 
 .tq-note {
   margin: 0;
@@ -307,7 +336,7 @@
 /* ---------- phones ---------- */
 
 @media (max-width: 480px) {
-  .tq        { padding: 20px 14px 28px; border-radius: 0; }
+  .tq        { padding: 24px 14px 30px; }
   .tq-card   { padding: 22px 18px; }
   .tq-q      { font-size: 1.3rem; }
   .tq-option { padding: 14px 15px; font-size: .97rem; }
@@ -333,8 +362,8 @@
     --tq-pink-soft: #FEAEC6;
     --tq-pink:      #F47C9E;
     --tq-pink-hover:#FE9CBA;
-    --tq-pink-deep: #C1053B;
-    --tq-pink-deep-hover: #A40532;
+    --tq-pink-deep: #BF4064;
+    --tq-pink-deep-hover: #A63656;
     --tq-rose-ink:  #333333;
     --tq-muted:     #8A4257;
     --tq-line:      #FFC9D4;

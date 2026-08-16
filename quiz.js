@@ -27,7 +27,7 @@ var QUESTIONS = [
     options: [
       { text: "I feel safe and comfortable expressing myself, even if we end up disagreeing.", weight: 0 },
       { text: "I hesitate, but I usually bring things up after a little while.", weight: 1 },
-      { text: "I carefully gauge their mood first and often decide it’s safer to keep my feelings to myself to avoid a blowout or cold shoulder.", weight: 2 },
+      { text: "I carefully gauge their mood first and often decide it’s safer to keep my feelings to myself to avoid an argument or getting the silent treatment.", weight: 2 },
       { text: "I feel intense anxiety or terror. I hide my true self because speaking up usually results in severe emotional punishment, rage, or total withdrawal.", weight: 3 }
     ]
   },
@@ -78,7 +78,7 @@ var QUESTIONS = [
       { text: "My body feels relaxed, grounded, and at ease.", weight: 0 },
       { text: "Mostly neutral or relaxed, unless we are in the middle of an active argument.", weight: 1 },
       { text: "I often feel a slight physical tightness (stomach knots, shallow breathing, neck tension) as I brace for their reaction or mood.", weight: 2 },
-      { text: "My nervous system is constantly on high alert. I monitor their tone of voice, footsteps, or text messaging cadence to sense danger before it happens.", weight: 3 }
+      { text: "My nervous system is constantly on high alert. I monitor their tone of voice, or tone of their messages to sense what kind of mood they’re in.", weight: 3 }
     ]
   },
   {
@@ -95,7 +95,7 @@ var QUESTIONS = [
     eyebrow: "Leaving vs. Staying",
     text: "Have you ever tried to leave or distance yourself from this relationship?",
     options: [
-      { text: "If a relationship isn’t working or becomes unhealthy, I am capable of ending it and staying end-focused.", weight: 0 },
+      { text: "If a relationship isn’t working or becomes unhealthy, I am capable of ending it and walking away.", weight: 0 },
       { text: "I’ve thought about leaving during bad fights, but we’ve always been able to talk through our issues constructively.", weight: 1 },
       { text: "I’ve tried to break up or pull away multiple times, but the intense panic, guilt, or their sudden return to being loving brings me right back.", weight: 2 },
       { text: "The idea of leaving fills me with unbearable grief and pain, even though staying causes me severe psychological distress. I don’t think I can live without them. I feel trapped in a cycle I can’t break.", weight: 3 }
@@ -132,8 +132,8 @@ var RESULTS = [
       { label: "An Inner Child Perspective",
         text: "Your wounded inner child is not leading the dynamic in your current relationship. You are able to access your Wise Adult self to set boundaries, express your authentic feelings, and protect your emotional well-being without fear of abandonment or retaliation." }
     ],
-    ctaText: "Book a free 20-minute call",
-    ctaHref: "#"
+    ctaText: "Book a free 15 minute call",
+    ctaHref: "https://stan.store/ViennaWoodTherapy"
   },
   {
     upTo: 11,
@@ -145,8 +145,8 @@ var RESULTS = [
       { label: "An Inner Child Perspective",
         text: "Parts of your young self may be activating when tension arises, leading you to walk on eggshells or minimise your own needs to preserve peace. Recognising these early warning signs is a powerful way to re-parent your inner child and practice setting firmer boundaries before deeper toxicity sets in." }
     ],
-    ctaText: "Book a free 20-minute call",
-    ctaHref: "#"
+    ctaText: "Book a free 15 minute call",
+    ctaHref: "https://stan.store/ViennaWoodTherapy"
   },
   {
     upTo: 18,
@@ -158,8 +158,8 @@ var RESULTS = [
       { label: "An Inner Child Perspective",
         text: "A trauma bond forms when an adult relationship mirrors the unresolved attachment wounds of childhood - where love was intermittent, conditional, or tied to keeping a caregiver calm. Your inner child is currently driving your relationship choices out of a deep survival desire to “fix” the dynamic and finally win the safe love you deserved as a child." }
     ],
-    ctaText: "Book a free 20-minute call",
-    ctaHref: "#"
+    ctaText: "Book a free 15 minute call",
+    ctaHref: "https://stan.store/ViennaWoodTherapy"
   },
   {
     upTo: 24,
@@ -169,10 +169,10 @@ var RESULTS = [
       { label: "What your results mean",
         text: "You are currently in a high-intensity trauma bond. Your nervous system is likely in a state of chronic hypervigilance (fight, flight, freeze, or fawn). The cycle of unpredictable warmth followed by emotional withdrawal or punishment has locked your body into a chemical attachment loop that feels almost impossible to break on your own." },
       { label: "An Inner Child Perspective",
-        text: "Your frightened inner child is currently running your system in survival mode. The intense terror or panic you feel at the thought of leaving is not true emotional intimacy; it is an abandonment depression response rooted in childhood developmental trauma. Please know: this is not a weakness on your part, it is a physiological and psychological biological response to chronic unpredictability." }
+        text: "Your frightened inner child is currently running your system in survival mode. The intense terror or panic you feel at the thought of leaving is not true emotional intimacy; it is an abandonment response rooted in childhood trauma. This isn’t a weakness on your part, it is a physiological and psychological response to chronic unpredictability." }
     ],
-    ctaText: "Book a free 20-minute call",
-    ctaHref: "#"
+    ctaText: "Book a free 15 minute call",
+    ctaHref: "https://stan.store/ViennaWoodTherapy"
   }
 ];
 
@@ -333,6 +333,17 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
   backBtn.addEventListener("click", function () {
     if (index > 0) { index--; renderQuestion(); }
   });
+
+  /* Only used by the optional "tq-bleed" class. 100vw includes the
+     desktop scrollbar, so a plain full-bleed overhangs by its width
+     and gives the page a sideways scroll. Measure it and hand it to
+     the CSS. Harmless if tq-bleed is not used. */
+  function measureScrollbar() {
+    var sb = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty("--tq-sb", (sb > 0 ? sb : 0) + "px");
+  }
+  measureScrollbar();
+  window.addEventListener("resize", measureScrollbar);
 
   if (noteEl) noteEl.textContent = QUIZ_NOTE;
   renderQuestion();
