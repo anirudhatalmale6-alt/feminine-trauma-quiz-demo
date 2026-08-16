@@ -1,0 +1,241 @@
+/* ============================================================
+   Intro page — Vienna Wood Inner Child Therapy
+   ------------------------------------------------------------
+   This file is LAYOUT ONLY. Every colour and the font stack come
+   from the :root block at the top of quiz.css, so the intro page
+   and the quiz can never drift apart — change a pink once and
+   both follow. Load quiz.css first, then this file.
+
+   Everything is scoped under .vw so it cannot leak into, or be
+   broken by, the rest of your site.
+   ============================================================ */
+
+.vw { color-scheme: light; }
+
+.vw,
+.vw * { box-sizing: border-box; }
+
+.vw {
+  font-family: var(--tq-font);
+  color: var(--tq-rose-ink);
+  background: var(--tq-blush);
+  width: 100%;
+  margin: 0;
+  padding: 48px 20px 60px;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+  line-height: 1.65;
+
+  /* Soft pink light, drawn in CSS rather than an image, so there is
+     nothing extra to load and it stays crisp on every screen. */
+  background-image:
+    radial-gradient(60% 42% at 12% 0%,   rgba(255,255,255,.85), rgba(255,255,255,0) 70%),
+    radial-gradient(52% 38% at 92% 14%,  rgba(254,174,198,.55), rgba(254,174,198,0) 72%);
+  background-repeat: no-repeat;
+}
+
+/* Same optional full-bleed helper as the quiz — see quiz.css */
+.vw-bleed {
+  width: auto;
+  margin-left:  calc(50% - 50vw + (var(--tq-sb, 0px) / 2));
+  margin-right: calc(50% - 50vw + (var(--tq-sb, 0px) / 2));
+}
+
+.vw-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ---------- cards ---------- */
+
+.vw-card {
+  background: var(--tq-card);
+  border: 1px solid var(--tq-line);
+  border-radius: var(--tq-radius);
+  box-shadow: var(--tq-shadow);
+  padding: 40px 38px;
+}
+
+.vw-hero { text-align: center; }
+
+/* The logo artwork has a white background baked in, so it has to
+   sit on white — hence the logo living inside the card, not up on
+   the pink. */
+.vw-logo {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto 26px;
+}
+
+.vw-eyebrow {
+  font-size: .74rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--tq-pink-deep);
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.vw-h1 {
+  font-family: var(--tq-font-head);
+  font-size: 2.4rem;
+  line-height: 1.15;
+  font-weight: 500;
+  color: var(--tq-pink-deep);
+  margin: 0 0 24px;
+}
+
+/* Heading block stays centred, the reading text goes left — long
+   centred paragraphs are hard work to read. */
+.vw-hero p:not(.vw-eyebrow) { margin: 0 0 18px; text-align: left; }
+.vw-hero p:last-child { margin-bottom: 0; }
+
+/* ---------- the three lines ---------- */
+
+.vw-affirm {
+  background: var(--tq-pink-soft);
+  border-radius: var(--tq-radius);
+  padding: 34px 30px;
+  margin: 22px 0;
+  text-align: center;
+}
+
+.vw-affirm p {
+  font-family: var(--tq-font-head);
+  font-size: 1.45rem;
+  line-height: 1.35;
+  margin: 0 0 6px;
+}
+
+.vw-affirm p:last-child { margin-bottom: 0; }
+
+.vw-affirm-last { font-weight: 600; }
+
+/* ---------- call to action ---------- */
+
+.vw-act {
+  text-align: center;
+  padding: 14px 0 6px;
+}
+
+/* Sits on the pink page background rather than a white card, so it
+   takes the deeper rose — see the note in quiz.css. */
+.vw-lead {
+  font-family: var(--tq-font-head);
+  font-size: 1.35rem;
+  color: var(--tq-pink-deep-hover);
+  margin: 0 0 18px;
+}
+
+.vw-cta {
+  display: inline-block;
+  background: var(--tq-pink);
+  color: var(--tq-rose-ink);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 17px 40px;
+  border: 0;
+  border-radius: 99px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s ease;
+}
+
+.vw-cta:hover { background: var(--tq-pink-hover); }
+
+.vw-cta:focus-visible {
+  outline: 3px solid var(--tq-pink-deep);
+  outline-offset: 3px;
+}
+
+.vw-meta {
+  font-size: .84rem;
+  color: var(--tq-muted);
+  margin: 14px 0 0;
+}
+
+/* ---------- about ---------- */
+
+.vw-about {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin-top: 22px;
+}
+
+.vw-photo {
+  flex: 0 0 250px;
+  max-width: 250px;
+}
+
+.vw-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--tq-radius);
+}
+
+.vw-bio { flex: 1 1 auto; }
+
+.vw-bio p:last-child { margin: 0; }
+
+/* ---------- tablet ---------- */
+
+@media (max-width: 720px) {
+  .vw       { padding: 34px 16px 44px; }
+  .vw-card  { padding: 30px 24px; }
+  .vw-h1    { font-size: 2rem; }
+  .vw-about { display: block; }
+
+  .vw-photo {
+    max-width: 210px;
+    margin: 0 auto 24px;
+  }
+}
+
+/* ---------- phones ---------- */
+
+@media (max-width: 480px) {
+  .vw        { padding: 26px 14px 36px; }
+  .vw-card   { padding: 26px 20px; }
+  .vw-h1     { font-size: 1.7rem; }
+  .vw-logo   { max-width: 250px; }
+  .vw-affirm { padding: 26px 20px; }
+  .vw-affirm p { font-size: 1.2rem; }
+  .vw-lead   { font-size: 1.15rem; }
+
+  .vw-cta {
+    display: block;
+    text-align: center;
+    padding: 16px 22px;
+  }
+}
+
+/* ---------- respect reduced-motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .vw * { transition: none !important; }
+}
+
+/* ---------- phone dark mode ----------
+   Same reason as the quiz: stops Android's automatic dark mode
+   from inventing its own grey version of the page. */
+
+@media (prefers-color-scheme: dark) {
+  .vw {
+    --tq-blush:     #FFDBE0;
+    --tq-card:      #FFFFFF;
+    --tq-pink-soft: #FEAEC6;
+    --tq-pink:      #F47C9E;
+    --tq-pink-hover:#FE9CBA;
+    --tq-pink-deep: #BF4064;
+    --tq-pink-deep-hover: #A63656;
+    --tq-rose-ink:  #333333;
+    --tq-muted:     #8A4257;
+    --tq-line:      #FFC9D4;
+    --tq-track:     #FEAEC6;
+  }
+}

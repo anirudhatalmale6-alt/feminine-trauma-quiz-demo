@@ -125,6 +125,36 @@ at `https://stan.store/ViennaWoodTherapy`. Both live on the `ctaText` and
 `ctaHref` lines of each result, so different endings can send people to
 different places if you ever want that.
 
+## The intro page
+
+`intro.html` is the landing page that sits in front of the quiz — your copy,
+your logo, your photo, and a button through to the questions.
+
+| File | Purpose |
+|---|---|
+| `intro.html` | The page. The drop-in block is `<div id="vw-intro">` |
+| `intro.css` | Layout only — no colours |
+| `intro-single-file.html` | Everything inlined, images included. One file |
+| `logo.jpg`, `vienna.jpg` | Resized for the web from the originals you sent |
+
+**It has no colours of its own.** `intro.css` is layout, and every colour and
+the font stack come from the `:root` block in `quiz.css`. Load `quiz.css`
+first, then `intro.css`, and the intro page and the quiz can never drift apart
+— change a pink once and both follow.
+
+**Point the button at your quiz.** Both "Start the quiz" links are set to
+`index.html` so they work in the demo. On your own site, change the two
+`href` values to the address of the page holding the quiz.
+
+The logo is used inside the white card rather than on the pink, because the
+file you sent is a JPEG with a white background baked into it — on the pink it
+would show as a white rectangle. If you ever get a PNG version with a
+transparent background from your designer, it can sit anywhere.
+
+`intro-single-file.html` has both images embedded in the file itself, so there
+is nothing to upload alongside it. If you would rather serve them from your
+media library, use `intro.html` and change the two `src` values.
+
 ## Collecting email addresses
 
 There is an optional screen between the last question and the result that asks
@@ -205,3 +235,13 @@ On the email screen specifically:
 - Skip link, Back to question 8 with the answer still selected, and restart
   all behave
 - No sideways scrolling at 320 / 360 / 390 / 412 / 430 / 540 / 767 px
+
+On the intro page:
+
+- Both builds load with no console errors and no failed requests
+- Logo and photo both render at their real size, in both builds
+- Every link on the page checked for a real 200 response, not just for
+  being present
+- Pink runs full width, and no sideways scrolling at 320 through 1280 px —
+  tested by actually scrolling sideways, since `scrollWidth` can under-report
+- Every piece of text meets WCAG AA against the background it sits on
