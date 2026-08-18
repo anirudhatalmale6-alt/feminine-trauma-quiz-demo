@@ -51,7 +51,7 @@
   --tq-pink-hover: #FE9CBA;   /* answer button hover            */
   --tq-pink-deep:  #F47C9E;   /* SITE - headings, small labels  */
   --tq-rose-ink:   #333333;   /* SITE - body text               */
-  --tq-muted:      #8A4257;   /* small print                    */
+  --tq-muted:      #333333;   /* SITE - small print             */
   --tq-line:       #FFC9D4;   /* hairlines / card border        */
   --tq-track:      #FFFFFF;   /* empty part of the progress bar */
 
@@ -433,7 +433,9 @@
   padding: 4px 2px;
 }
 
-.tq-back:hover { color: var(--tq-rose-ink); }
+/* Small print is now the same charcoal as the body text, so a hover that
+   only changed colour would do nothing visible. Underline it instead. */
+.tq-back:hover { text-decoration: underline; }
 
 .tq-note {
   margin: 0;
@@ -473,7 +475,7 @@
     --tq-pink-hover:#FE9CBA;
     --tq-pink-deep: #F47C9E;
     --tq-rose-ink:  #333333;
-    --tq-muted:     #8A4257;
+    --tq-muted:     #333333;
     --tq-line:      #FFC9D4;
     --tq-track:     #FFFFFF;
   }
@@ -716,7 +718,7 @@
     --tq-pink-hover:#FE9CBA;
     --tq-pink-deep: #F47C9E;
     --tq-rose-ink:  #333333;
-    --tq-muted:     #8A4257;
+    --tq-muted:     #333333;
     --tq-line:      #FFC9D4;
     --tq-track:     #FFFFFF;
   }

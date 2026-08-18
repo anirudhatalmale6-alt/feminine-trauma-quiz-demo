@@ -69,7 +69,7 @@ will sit on. They all live at the top of `quiz.css`:
   --tq-pink-hover: #FE9CBA;   /* answer button hover            */
   --tq-pink-deep:  #F47C9E;   /* SITE - headings, small labels  */
   --tq-rose-ink:   #333333;   /* SITE - body text               */
-  --tq-muted:      #8A4257;   /* small print                    */
+  --tq-muted:      #333333;   /* SITE - small print             */
   --tq-line:       #FFC9D4;   /* hairlines / card border        */
   --tq-track:      #FFFFFF;   /* empty part of the progress bar */
 }
@@ -80,8 +80,14 @@ copy of the palette in the `@media (prefers-color-scheme: dark)` block at the
 bottom of the same file too — that block is what stops Android phones in auto
 dark mode from repainting the quiz in their own grey colours.
 
-**Headings use your own #F47C9E**, exactly as they do on your website. There
-are no invented shades in here.
+**Headings use your own #F47C9E**, exactly as they do on your website, and
+every other piece of text is either that pink or your charcoal `#333333`.
+There are no invented shades in here at all.
+
+All the small print — "Question 3 of 8", the Back link, "8 questions, about
+three minutes" and "This is a gentle self-reflection, not a diagnosis" — uses
+the charcoal. It is all driven by one variable, `--tq-muted`, so if you ever
+want that print softer, change that one line rather than hunting for it.
 
 One thing to be aware of, so that it is your decision and not a surprise:
 #F47C9E on white measures **2.6:1**, and the accepted standard for readable
