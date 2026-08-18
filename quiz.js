@@ -190,6 +190,10 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
      3. nameField / emailField: the field names it expects
    Then send yourself a test signup and check it arrives.
 
+   With MailerLite: Forms -> Embedded form -> build it -> "Copy
+   HTML code". In that code, `action="..."` on the <form> tag is
+   the address, and the field names are already set below.
+
    required: false  -> asks for the email, but a "no thanks" link
                        lets people through to their result
    required: true   -> the result is not shown without an email
@@ -213,8 +217,12 @@ var EMAIL_CAPTURE = {
 
   /* Filled in once you have picked a mailing tool. */
   action:      "",
-  nameField:   "fields[first_name]",
-  emailField:  "email_address"
+  nameField:   "fields[name]",
+  emailField:  "fields[email]",
+
+  /* Any extra hidden inputs the form needs, as name: value. Some
+     MailerLite forms require ml-submit — the embed code shows it. */
+  hidden:      {}
 };
 
 /* Lets a page switch these on without editing this file — used by
@@ -340,6 +348,14 @@ if (typeof window !== "undefined" && window.TQ_CONFIG) {
     html += '<iframe name="tq-sink" class="tq-sink" title="" tabindex="-1"></iframe>';
     html += '<form class="tq-form" id="tq-form" method="post" target="tq-sink" novalidate' +
             (C.action ? ' action="' + esc(C.action) + '"' : "") + ">";
+
+    if (C.hidden) {
+      for (var hk in C.hidden) {
+        if (Object.prototype.hasOwnProperty.call(C.hidden, hk)) {
+          html += '<input type="hidden" name="' + esc(hk) + '" value="' + esc(C.hidden[hk]) + '">';
+        }
+      }
+    }
 
     html += '<div class="tq-field"><label for="tq-name">' + esc(C.nameLabel) + "</label>" +
             '<input type="text" id="tq-name" name="' + esc(C.nameField) +

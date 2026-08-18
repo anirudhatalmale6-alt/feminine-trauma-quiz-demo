@@ -187,6 +187,18 @@ nameField:  "<the field name it expects for a first name>",
 emailField: "<the field name it expects for an email>"
 ```
 
+**With MailerLite**, the field names are already right — `fields[name]` and
+`fields[email]` — so `action` is the only line that needs filling in. Get it
+from **Forms → Embedded form**, build the form, then **Copy HTML code**: the
+`action="..."` on the `<form>` tag is the address.
+
+Some MailerLite forms also carry a hidden `ml-submit` input. If yours does,
+copy it into the `hidden` block and it goes out with the rest:
+
+```js
+hidden: { "ml-submit": "1" }
+```
+
 The form posts into a hidden frame, so the page never reloads and the visitor
 goes straight to their result.
 
