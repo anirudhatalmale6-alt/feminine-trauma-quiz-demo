@@ -233,6 +233,40 @@ A few notes on the data, since these are people in a vulnerable moment:
 - Add your privacy page to `privacyText` / `privacyHref` and it appears as a
   link under the consent line
 
+## On viennawoodtherapy.co.uk
+
+Both pages are live:
+
+| Page | Address | What it is |
+|---|---|---|
+| Intro | `/trauma-bond-quiz` | The shareable link — logo, copy, photo, button |
+| Quiz | `/quiz` | The 8 questions |
+
+They are published but **not in the menu**, so they only appear to someone
+given the link. Both use the **Elementor Full Width** page template, which
+keeps the header and footer but removes the theme's 1140px content column —
+without it the pink stops short of the edges.
+
+`wordpress-quiz-block.html` and `wordpress-intro-block.html` are the exact
+blocks installed, if either page ever needs pasting back in. They are the
+single-file builds with two changes, both of which matter:
+
+1. **The page reset is removed.** The single-file builds set
+   `html,body{background:#FFDBE0}` so the demo is pink to the edges. Inside a
+   WordPress page that would repaint the *whole site* pink, header and footer
+   included.
+2. **Every `<` in the script is escaped.** WordPress runs its typographic
+   filter over page content. It is supposed to skip `<script>`, but it finds
+   tags by scanning from `<` to the next `>`, so an ordinary comparison like
+   `i < r.body.length` opens what it thinks is a tag. After that it no longer
+   believes it is inside a script, and it rewrote `&&` as `&#038;&#038;` —
+   which stops the quiz dead with "Invalid or unexpected token". Comparisons
+   are flipped (`a < b` → `b > a`) and the rest become `\x3c`, which is the
+   same character to a browser.
+
+Regenerate them with `scratchpad/wp_fragments.py`, which refuses to write a
+file whose script a JavaScript engine will not parse.
+
 ## What it does
 
 - One question per screen, no splash screen

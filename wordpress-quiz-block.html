@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Are You in a Trauma Bond?</title>
 <style>
 /* ============================================================
    Are You in a Trauma Bond? — styles
@@ -97,7 +91,7 @@
 /* OPTIONAL — only if your theme wraps page content in a narrow
    column and you want the pink to reach the very edges of the
    screen anyway. Add it as a second class on the quiz div:
-       <div id="tq-quiz" class="tq tq-bleed"> ...
+       div id="tq-quiz" class="tq tq-bleed"> ...
    Leave it off and the pink simply fills its container. */
 .tq-bleed {
   width: auto;
@@ -179,7 +173,7 @@
 
 /* Host-theme guard. Everything here is scoped to .tq so it cannot affect the
    surrounding site - it exists because the surrounding site can affect US.
-   viennawoodtherapy.co.uk sets `white-space: nowrap` on every <button>, which
+   viennawoodtherapy.co.uk sets `white-space: nowrap` on every button>, which
    held each answer on one line and pushed the quiz 800px wider than a phone
    screen. A theme has no reason to expect a paragraph inside a button, so state
    the wrapping rules here rather than inheriting whatever the page happens to
@@ -499,11 +493,6 @@
 }
 
 </style>
-<!-- Demo page only. Your own site already sets these. -->
-<style>html,body{margin:0;padding:0;background:#FFDBE0;}</style>
-</head>
-<body>
-
 <!-- ============================================================
      Drop-in block. Everything the quiz needs lives inside
      <div id="tq-quiz">. Styles: quiz.css   Logic: quiz.js
@@ -645,15 +634,15 @@ var QUESTIONS = [
 ];
 
 /* The little flower above the ending. Swap for your own SVG,
-   an <img>, or set "mark" to "" on a result to hide it. */
+   an img tag, or set "mark" to "" on a result to hide it. */
 var FLOWER =
-  '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">' +
-  '<circle cx="12"   cy="6.6"  r="4.3"/>' +
-  '<circle cx="17.1" cy="10.3" r="4.3"/>' +
-  '<circle cx="15.1" cy="16.4" r="4.3"/>' +
-  '<circle cx="8.9"  cy="16.4" r="4.3"/>' +
-  '<circle cx="6.9"  cy="10.3" r="4.3"/>' +
-  '<circle cx="12"   cy="12"   r="2.9" class="tq-flower-hole"/></svg>';
+  '\x3csvg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">' +
+  '\x3ccircle cx="12"   cy="6.6"  r="4.3"/>' +
+  '\x3ccircle cx="17.1" cy="10.3" r="4.3"/>' +
+  '\x3ccircle cx="15.1" cy="16.4" r="4.3"/>' +
+  '\x3ccircle cx="8.9"  cy="16.4" r="4.3"/>' +
+  '\x3ccircle cx="6.9"  cy="10.3" r="4.3"/>' +
+  '\x3ccircle cx="12"   cy="12"   r="2.9" class="tq-flower-hole"/>\x3c/svg>';
 
 /* Shown once, after the final question. "upTo" is the highest
    total score that lands on this ending. Keep them in order.
@@ -801,7 +790,7 @@ if (typeof window !== "undefined" && window.TQ_CONFIG) {
 
   function esc(s) {
     return String(s)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/&/g, "&amp;").replace(/\x3c/g, "&lt;")
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
@@ -821,19 +810,19 @@ if (typeof window !== "undefined" && window.TQ_CONFIG) {
     var q = QUESTIONS[index];
     var html = "";
 
-    if (q.eyebrow) html += '<p class="tq-eyebrow">' + esc(q.eyebrow) + "</p>";
-    html += '<h1 class="tq-q">' + esc(q.text) + "</h1>";
-    html += '<ul class="tq-options">';
+    if (q.eyebrow) html += '\x3cp class="tq-eyebrow">' + esc(q.eyebrow) + "\x3c/p>";
+    html += '\x3ch1 class="tq-q">' + esc(q.text) + "\x3c/h1>";
+    html += '\x3cul class="tq-options">';
 
-    for (var i = 0; i < q.options.length; i++) {
+    for (var i = 0; q.options.length > i; i++) {
       var selected = selectedIdx[index] === i;
-      html += "<li><button type=\"button\" class=\"tq-option" +
+      html += "\x3cli>\x3cbutton type=\"button\" class=\"tq-option" +
               (selected ? " is-selected" : "") +
               "\" data-i=\"" + i + "\">" + esc(q.options[i].text) +
-              "</button></li>";
+              "\x3c/button>\x3c/li>";
     }
 
-    html += "</ul>";
+    html += "\x3c/ul>";
     screenEl.innerHTML = html;
     onEmail = false;
 
@@ -851,7 +840,7 @@ if (typeof window !== "undefined" && window.TQ_CONFIG) {
     answers[index]     = q.options[optIndex].weight;
     selectedIdx[index] = optIndex;
 
-    if (index < QUESTIONS.length - 1) {
+    if (QUESTIONS.length - 1 > index) {
       index++;
       renderQuestion();
     } else if (EMAIL_CAPTURE.enabled) {
@@ -863,13 +852,13 @@ if (typeof window !== "undefined" && window.TQ_CONFIG) {
 
   function totalScore() {
     var t = 0;
-    for (var i = 0; i < answers.length; i++) t += (answers[i] || 0);
+    for (var i = 0; answers.length > i; i++) t += (answers[i] || 0);
     return t;
   }
 
   function pickResult(score) {
-    for (var i = 0; i < RESULTS.length; i++) {
-      if (score <= RESULTS[i].upTo) return RESULTS[i];
+    for (var i = 0; RESULTS.length > i; i++) {
+      if (RESULTS[i].upTo >= score) return RESULTS[i];
     }
     return RESULTS[RESULTS.length - 1];
   }
@@ -882,46 +871,46 @@ if (typeof window !== "undefined" && window.TQ_CONFIG) {
     var C = EMAIL_CAPTURE;
     var html = "";
 
-    if (C.eyebrow) html += '<p class="tq-eyebrow">' + esc(C.eyebrow) + "</p>";
-    html += '<h1 class="tq-q">' + esc(C.title) + "</h1>";
-    if (C.blurb) html += '<p class="tq-blurb">' + esc(C.blurb) + "</p>";
+    if (C.eyebrow) html += '\x3cp class="tq-eyebrow">' + esc(C.eyebrow) + "\x3c/p>";
+    html += '\x3ch1 class="tq-q">' + esc(C.title) + "\x3c/h1>";
+    if (C.blurb) html += '\x3cp class="tq-blurb">' + esc(C.blurb) + "\x3c/p>";
 
     /* The form posts into a hidden frame, so the page never reloads
        and the visitor goes straight to their result. */
-    html += '<iframe name="tq-sink" class="tq-sink" title="" tabindex="-1"></iframe>';
-    html += '<form class="tq-form" id="tq-form" method="post" target="tq-sink" novalidate' +
+    html += '\x3ciframe name="tq-sink" class="tq-sink" title="" tabindex="-1">\x3c/iframe>';
+    html += '\x3cform class="tq-form" id="tq-form" method="post" target="tq-sink" novalidate' +
             (C.action ? ' action="' + esc(C.action) + '"' : "") + ">";
 
     if (C.hidden) {
       for (var hk in C.hidden) {
         if (Object.prototype.hasOwnProperty.call(C.hidden, hk)) {
-          html += '<input type="hidden" name="' + esc(hk) + '" value="' + esc(C.hidden[hk]) + '">';
+          html += '\x3cinput type="hidden" name="' + esc(hk) + '" value="' + esc(C.hidden[hk]) + '">';
         }
       }
     }
 
-    html += '<div class="tq-field"><label for="tq-name">' + esc(C.nameLabel) + "</label>" +
-            '<input type="text" id="tq-name" name="' + esc(C.nameField) +
-            '" autocomplete="given-name"></div>';
+    html += '\x3cdiv class="tq-field">\x3clabel for="tq-name">' + esc(C.nameLabel) + "\x3c/label>" +
+            '\x3cinput type="text" id="tq-name" name="' + esc(C.nameField) +
+            '" autocomplete="given-name">\x3c/div>';
 
-    html += '<div class="tq-field"><label for="tq-email">' + esc(C.emailLabel) + "</label>" +
-            '<input type="email" id="tq-email" name="' + esc(C.emailField) +
-            '" autocomplete="email" aria-describedby="tq-err" required></div>';
+    html += '\x3cdiv class="tq-field">\x3clabel for="tq-email">' + esc(C.emailLabel) + "\x3c/label>" +
+            '\x3cinput type="email" id="tq-email" name="' + esc(C.emailField) +
+            '" autocomplete="email" aria-describedby="tq-err" required>\x3c/div>';
 
-    html += '<label class="tq-consent"><input type="checkbox" id="tq-consent" name="consent" value="yes">' +
-            "<span>" + esc(C.consent) + "</span></label>";
+    html += '\x3clabel class="tq-consent">\x3cinput type="checkbox" id="tq-consent" name="consent" value="yes">' +
+            "\x3cspan>" + esc(C.consent) + "\x3c/span>\x3c/label>";
 
     if (C.privacyText && C.privacyHref) {
-      html += '<p class="tq-privacy"><a href="' + esc(C.privacyHref) +
-              '" target="_blank" rel="noopener">' + esc(C.privacyText) + "</a></p>";
+      html += '\x3cp class="tq-privacy">\x3ca href="' + esc(C.privacyHref) +
+              '" target="_blank" rel="noopener">' + esc(C.privacyText) + "\x3c/a>\x3c/p>";
     }
 
-    html += '<p class="tq-error" id="tq-err" role="alert"></p>';
-    html += '<button type="submit" class="tq-cta tq-submit">' + esc(C.buttonText) + "</button>";
-    html += "</form>";
+    html += '\x3cp class="tq-error" id="tq-err" role="alert">\x3c/p>';
+    html += '\x3cbutton type="submit" class="tq-cta tq-submit">' + esc(C.buttonText) + "\x3c/button>";
+    html += "\x3c/form>";
 
     if (!C.required && C.skipText) {
-      html += '<button type="button" class="tq-restart" id="tq-skip">' + esc(C.skipText) + "</button>";
+      html += '\x3cbutton type="button" class="tq-restart" id="tq-skip">' + esc(C.skipText) + "\x3c/button>";
     }
 
     screenEl.innerHTML = html;
@@ -970,33 +959,33 @@ if (typeof window !== "undefined" && window.TQ_CONFIG) {
 
   function renderResult() {
     var r = pickResult(totalScore());
-    var html = '<div class="tq-result">';
+    var html = '\x3cdiv class="tq-result">';
 
-    if (r.mark) html += '<div class="tq-result-mark" aria-hidden="true">' + r.mark + "</div>";
-    html += "<h2>" + esc(r.title) + "</h2>";
+    if (r.mark) html += '\x3cdiv class="tq-result-mark" aria-hidden="true">' + r.mark + "\x3c/div>";
+    html += "\x3ch2>" + esc(r.title) + "\x3c/h2>";
 
-    for (var i = 0; i < r.body.length; i++) {
+    for (var i = 0; r.body.length > i; i++) {
       var b = r.body[i];
       if (b && typeof b === "object") {
-        if (b.label) html += '<p class="tq-body-label">' + esc(b.label) + "</p>";
-        html += "<p>" + esc(b.text) + "</p>";
+        if (b.label) html += '\x3cp class="tq-body-label">' + esc(b.label) + "\x3c/p>";
+        html += "\x3cp>" + esc(b.text) + "\x3c/p>";
       } else {
-        html += "<p>" + esc(b) + "</p>";
+        html += "\x3cp>" + esc(b) + "\x3c/p>";
       }
     }
 
     if (r.next && r.next.length) {
-      html += '<div class="tq-next"><p class="tq-next-title">Where to go from here</p><ul>';
-      for (var j = 0; j < r.next.length; j++) html += "<li>" + esc(r.next[j]) + "</li>";
-      html += "</ul></div>";
+      html += '\x3cdiv class="tq-next">\x3cp class="tq-next-title">Where to go from here\x3c/p>\x3cul>';
+      for (var j = 0; r.next.length > j; j++) html += "\x3cli>" + esc(r.next[j]) + "\x3c/li>";
+      html += "\x3c/ul>\x3c/div>";
     }
 
     if (r.ctaText) {
-      html += '<a class="tq-cta" href="' + esc(r.ctaHref || "#") + '">' + esc(r.ctaText) + "</a>";
+      html += '\x3ca class="tq-cta" href="' + esc(r.ctaHref || "#") + '">' + esc(r.ctaText) + "\x3c/a>";
     }
 
-    html += '<button type="button" class="tq-restart" id="tq-restart">Take the quiz again</button>';
-    html += "</div>";
+    html += '\x3cbutton type="button" class="tq-restart" id="tq-restart">Take the quiz again\x3c/button>';
+    html += "\x3c/div>";
 
     screenEl.innerHTML = html;
     onEmail = false;
@@ -1049,5 +1038,3 @@ if (typeof window !== "undefined" && window.TQ_CONFIG) {
 })();
 
 </script>
-</body>
-</html>

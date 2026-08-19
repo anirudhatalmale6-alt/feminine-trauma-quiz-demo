@@ -170,6 +170,24 @@
 
 /* ---------- options ---------- */
 
+/* Host-theme guard. Everything here is scoped to .tq so it cannot affect the
+   surrounding site - it exists because the surrounding site can affect US.
+   viennawoodtherapy.co.uk sets `white-space: nowrap` on every <button>, which
+   held each answer on one line and pushed the quiz 800px wider than a phone
+   screen. A theme has no reason to expect a paragraph inside a button, so state
+   the wrapping rules here rather than inheriting whatever the page happens to
+   have. */
+.tq button,
+.tq a,
+.tq label,
+.tq input,
+.tq p,
+.tq li {
+  white-space: normal;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
 .tq-options {
   list-style: none;
   margin: 0;
