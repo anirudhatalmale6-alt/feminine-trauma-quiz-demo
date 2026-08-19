@@ -154,8 +154,9 @@ first, then `intro.css`, and the intro page and the quiz can never drift apart
 — change a pink once and both follow.
 
 **Point the button at your quiz.** Both "Start the quiz" links are set to
-`index.html` so they work in the demo. On your own site, change the two
-`href` values to the address of the page holding the quiz.
+`https://viennawoodtherapy.co.uk/quiz` — the page that will hold the
+questions. If you ever rename that page, change those two `href` values in
+`intro.html` (and rebuild `intro-single-file.html`) or the buttons go nowhere.
 
 The logo is used inside the white card rather than on the pink, because the
 file you sent is a JPEG with a white background baked into it — on the pink it
