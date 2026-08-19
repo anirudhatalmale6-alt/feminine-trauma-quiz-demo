@@ -184,22 +184,21 @@ var SAFETY_NOTE = "If you are in immediate danger, please contact your local eme
    EMAIL CAPTURE — a screen between the last question and the
    result. Switched OFF until your mailing list is connected.
 
-   To turn it on:
-     1. enabled: true
-     2. action:  the form address your mailing tool gives you
-     3. nameField / emailField: the field names it expects
-   Then send yourself a test signup and check it arrives.
+   THIS IS NOW LIVE and connected to your MailerLite account,
+   to the form called "Trauma Bond Quiz". Signups land in the
+   group that form feeds, and MailerLite sends the confirmation
+   email because you have double opt-in switched on.
 
-   With MailerLite: Forms -> Embedded form -> build it -> "Copy
-   HTML code". In that code, `action="..."` on the <form> tag is
-   the address, and the field names are already set below.
+   To switch it off again, set enabled: false. Nothing else needs
+   changing and the quiz goes straight from question 8 to the
+   result, exactly as it did before.
 
    required: false  -> asks for the email, but a "no thanks" link
                        lets people through to their result
    required: true   -> the result is not shown without an email
    ============================================================ */
 var EMAIL_CAPTURE = {
-  enabled:  false,
+  enabled:  true,
   required: false,
 
   eyebrow:  "Almost there",
@@ -215,14 +214,17 @@ var EMAIL_CAPTURE = {
   buttonText:  "Show my result",
   skipText:    "No thanks, just show my result",
 
-  /* Filled in once you have picked a mailing tool. */
-  action:      "",
+  /* Connected to your MailerLite form "Trauma Bond Quiz".
+     2582945 is your account, the long number is that form. If you
+     ever rebuild the form in MailerLite, the long number changes
+     and this line has to change with it. */
+  action:      "https://assets.mailerlite.com/jsonp/2582945/forms/196155013989401991/subscribe",
   nameField:   "fields[name]",
   emailField:  "fields[email]",
 
-  /* Any extra hidden inputs the form needs, as name: value. Some
-     MailerLite forms require ml-submit — the embed code shows it. */
-  hidden:      {}
+  /* Extra hidden inputs the form needs, as name: value. Both of
+     these are fixed values copied from your own MailerLite form. */
+  hidden:      { "ml-submit": "1", "anticsrf": "true" }
 };
 
 /* Lets a page switch these on without editing this file — used by

@@ -168,44 +168,62 @@ media library, use `intro.html` and change the two `src` values.
 
 ## Collecting email addresses
 
-There is an optional screen between the last question and the result that asks
-for a first name and an email address. It is **switched off** until a mailing
-list is connected, so the quiz currently runs exactly as before.
+There is a screen between the last question and the result that asks for a
+first name and an email address. It is **switched on and connected to your
+MailerLite account**, to the embedded form called "Trauma Bond Quiz".
 
-Two preview pages show it working, with nothing connected behind them:
-
-- `preview-email.html` — asks, but a "no thanks" link lets people through
-- `preview-email-required.html` — no result without an email
-
-Everything about it lives in the `EMAIL_CAPTURE` block at the top of `quiz.js`
-— the wording, the consent line, the button text. To switch it on:
+It is **skippable** — there is a "No thanks, just show my result" link, so
+nobody is refused their result for not handing over an address. To make it
+compulsory instead, change one line in the `EMAIL_CAPTURE` block of `quiz.js`:
 
 ```js
-enabled:    true,
-action:     "<the form address your mailing tool gives you>",
-nameField:  "<the field name it expects for a first name>",
-emailField: "<the field name it expects for an email>"
+required: true,
 ```
 
-**With MailerLite**, the field names are already right — `fields[name]` and
-`fields[email]` — so `action` is the only line that needs filling in. Get it
-from **Forms → Embedded form**, build the form, then **Copy HTML code**: the
-`action="..."` on the `<form>` tag is the address.
+Everything else about the screen lives in that same block — the wording, the
+consent line, the button text.
 
-Some MailerLite forms also carry a hidden `ml-submit` input. If yours does,
-copy it into the `hidden` block and it goes out with the rest:
+These are the lines that do the connecting. You should not need to touch them:
 
 ```js
-hidden: { "ml-submit": "1" }
+action: "https://assets.mailerlite.com/jsonp/2582945/forms/196155013989401991/subscribe",
+nameField: "fields[name]",
+emailField: "fields[email]",
+hidden: { "ml-submit": "1", "anticsrf": "true" }
 ```
+
+`2582945` is your MailerLite account. The long number is that particular form.
+**If you ever delete and rebuild the form in MailerLite, the long number
+changes** and this line has to change with it, or signups stop arriving.
+
+To switch the whole screen off again, set `enabled: false`. The quiz then runs
+question 8 straight to the result, exactly as it did before.
 
 The form posts into a hidden frame, so the page never reloads and the visitor
 goes straight to their result.
 
-**Check a real signup arrives before you rely on it.** Because the form posts
-without waiting for an answer, a wrong address fails silently — the visitor
-still sees their result and nothing looks broken, but nobody joins the list.
-Sign yourself up once and confirm you appear in the list.
+Two preview pages show the two options side by side. They are **deliberately
+not connected** to your list — they post nowhere at all, so you can submit them
+as often as you like without adding anyone:
+
+- `preview-email.html` — asks, but a "no thanks" link lets people through
+- `preview-email-required.html` — no result without an email
+
+**Why a real test signup matters.** Because the form posts without waiting for
+an answer, a wrong address would fail silently — the visitor still sees their
+result and nothing looks broken, but nobody joins the list. The connection was
+checked against MailerLite directly before going live, and confirmed both that
+a correct signup is accepted and that a malformed one is rejected.
+
+Your account has **double opt-in** turned on, so new people get a confirmation
+email and only join the list once they click it. Until they do, they show in
+MailerLite as unconfirmed.
+
+Two more things worth adding when you have them:
+
+- Your privacy page, in `privacyText` / `privacyHref` — it then appears as a
+  link under the consent line
+- A welcome email in MailerLite, so people hear from you straight away
 
 A few notes on the data, since these are people in a vulnerable moment:
 
